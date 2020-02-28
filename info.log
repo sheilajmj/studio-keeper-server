@@ -1,0 +1,16 @@
+{"message":"Unauthorized request to path: /api/","level":"error"}
+{"message":"Unauthorized request to path: /api/","level":"error"}
+{"message":"Unauthorized request to path: /api/","level":"error"}
+{"message":"Unauthorized request to path: /api","level":"error"}
+{"message":"Unauthorized request to path: /","level":"error"}
+{"message":"Unauthorized request to path: /","level":"error"}
+{"message":"Unauthorized request to path: /api/","level":"error"}
+{"message":"Unauthorized request to path: /api/","level":"error"}
+{"message":"Unauthorized request to path: /api/","level":"error"}
+{"message":"Unauthorized request to path: /contacts","level":"error"}
+{"message":"Contact with id 7122f2d7-7a79-4d12-b291-602fa6663610 created","level":"info"}
+{"message":"contact with id undefined deleted","level":"info"}
+{"message":"contact with id undefined deleted","level":"info"}
+{"message":"contact with id undefined deleted","level":"info"}
+{"message":"contact with id 001 deleted","level":"info"}
+{"message":"Unauthorized request to path: /catalog","level":"error"}
