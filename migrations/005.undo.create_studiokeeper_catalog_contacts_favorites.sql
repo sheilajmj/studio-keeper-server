@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS studiokeeper_catalog_contacts_favorites;

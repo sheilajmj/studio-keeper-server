@@ -5,53 +5,38 @@ const bodyParser = express.json()
 const { requireAuth } = require('../middleware/jwt-auth')
 jsonParser = express.json()
 
-const serializeCatalogItem = catalog => ({
-  "id": catalog.id,
-  "type": catalog.type,
-  "collection": catalog.collection,
-  "name": catalog.name,
-  "size": catalog.size,
-  "medium": catalog.medium,
-  "price": catalog.price,
-  "date_created": catalog.date_created,
-  "concept_statement": catalog.concept_statement,
-  "notes": catalog.notes,
-  //"images": catalog.images,
-  "subject": catalog.subject,
-  "quantity": catalog.quantity,
-  "location": catalog.location,
-  // "favorited_by": catalog.favorited_by,
-  "sold_date": catalog.sold_date,
-  "sold_to": catalog.sold_to,
-  "history": catalog.history
-
+const serializeCatalogEventsItem = item => ({
+    "catalog_id": item.catalog_id,
+    "event_id": item.event_id, 
 })
 
-catalogRouter
-  .route('/catalog')
+
+
+catalogEventRouter
+  .route('/catalog-events')
   // .all(requireAuth)
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
     CatalogService.getAllCatalogEntries(knexInstance)
       .then(catalog => {
-        res.json(catalog.map(serializeCatalogItem))
+        res.json(catalog.map(serializeCatalogEventsItem))
       })
       .catch(next)
   })
 
   .post(bodyParser, (req, res, next) => {
 
-    const { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, images, subject, quantity, location, sold_date, sold_to, history } = req.body;
-    const newCatalogItem = { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, images, subject, quantity, location, sold_date, sold_to, history }
-    if (!name) {
+    const { event_id, catalog_id } = req.body;
+    const newCatalogEventItem = { catalog_id, event_id}
+    if (!event_id || !catalog_id) {
       return res
         .status(400)
         .json({
-          error: { message: 'A name is required' }
+          error: { message: 'An event and catalog item are required' }
         })
     }
 
-    newCatalogItem.user_id = user_id
+    newCatalogEventItem.user_id = user_id
     CatalogService.insertCatalogEntry(
       req.app.get('db'),
       newCatalogItem
@@ -66,7 +51,7 @@ catalogRouter
   })
 
 
-catalogRouter
+catalogEventRouter
   .route('/catalog/:id')
   .all(requireAuth)
   .all((req, res, next) => {

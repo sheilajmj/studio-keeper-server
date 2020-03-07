@@ -1,135 +1,123 @@
 const express = require('express')
 const contactsRouter = express.Router()
+const ContactsService = require('../contacts/contacts-service')
+const { requireAuth } = require('../middleware/jwt-auth')
 const bodyParser = express.json()
-const contacts = [{
-  "contact_id": "001",
-  "contact_type": "Individual",
-  "business_name": "Craftwork",
-  "name": "Dear T",
-  "title": "Founder",
-  "events": [],
-  "email": "dearT@email.com",
-  "phone": "303.555.5555",
-  "address_street": "2323 Arm St.",
-  "address_line2": "",
-  "address_city": "Seven Hills",
-  "address_state": "CO",
-  "address_zip": "80881",
-  "address_country": "USA",
-  "website": "https://www.website.com",
-  "favorites": ["001", "002"],
-  "notes": "here is a note for my contact"
-},
-{
-  "contact_id": "002",
-  "contact_type": "Business",
-  "business_name": "Craftwork",
-  "name": "A Name",
-  "title": "",
-  "events": ["002"],
-  "email": "craftwork@craftwork.com",
-  "phone": "222-893-8873",
-  "address_street": "1011 Leg St.",
-  "address_line2": "#40",
-  "address_city": "LakeAli",
-  "address_state": "CA",
-  "address_zip": "70221",
-  "address_country": "USA",
-  "website": "https://www.website2.com",
-  "favorites": ["001"],
-  "notes": "Note 2 here is a note for my contact"
-},
-{
-  "contact_id": "003",
-  "contact_type": "Business",
-  "business_name": "PaintFlow",
-  "name": "",
-  "title": "",
-  "events": ["003", "001"],
-  "email": "info@allstarshow.com",
-  "phone": "101-993-3399",
-  "address_street": "107 Shoulder St.",
-  "address_line2": "",
-  "address_city": "City1",
-  "address_state": "WA",
-  "address_zip": "90912",
-  "address_country": "USA",
-  "website": "https://www.allstarshow.com",
-  "favorites": ["002", "001", "003"],
-  "notes": "This is note 3"
-}
-]
-const uuid = require('uuid/v4');
-const logger = require('../../logger')
+
+const serializeContact = contact => ({
+  "id": contact.id,
+  "contact_type": contact.contact_type,
+  "business_name": contact.business_name,
+  "name": contact.name,
+  "title": contact.title,
+  //"events": [],
+  "email": contact.email,
+  "phone": contact.phone,
+  "address_street": contact.address_street,
+  "address_line2": contact.address_line2,
+  "address_city": contact.address_city,
+  "address_state": contact.address_state,
+  "address_zip": contact.address_zip,
+  "address_country": contact.address_country,
+  "website": contact.website,
+  //"favorites": ["001", "002"],
+  "notes": contact.notes
+})
+
 contactsRouter
   .route('/contacts')
-  .get((req, res) => {
-    res
-      .json(contacts);
+  .get((req, res, next) => {
+    const knexInstance = req.app.get('db')
+  ContactsService.getAllContacts(knexInstance)
+    .then(contact => {
+      res.json(contact.map(serializeContact));
+    })
+    .catch(next)
   })
 
   .post(bodyParser, (req, res) => {
 
-      const { contact_type, business_name, name, title, events, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, favorites, notes } = req.body;
-
+      const { user_id, contact_type, business_name, name, title, events, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, favorites, notes } = req.body;
+      const newContact = { user_id, contact_type, business_name, name, title, events, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, favorites, notes }
       if (!name && !business_name) {
-        logger.error(`name or business name is required`);
         return res
           .status(400)
-          .send('Invalid data');
+          .json({
+            error: { message: 'A name of business name is required'}
+          }) 
       }
 
-      const contact_id = uuid();
-      const contact = {
-        contact_id,
-        contact_type,
-        business_name,
-        name,
-        title,
-        events,
-        email,
-        phone,
-        address_street,
-        address_line2,
-        address_city,
-        address_state,
-        address_zip,
-        address_country,
-        website,
-        favorites,
-        notes
-      }
-      contacts.push(contact);
-      logger.info(`Contact with id ${contact_id} created`);
-
-      res
+      newContact.user_id = user_id
+      ContactsService.insertCatalogEntry(
+        req.app.get('db'),
+        newContact
+      )
+      then(item => {
+        res
         .status(201)
-        .location(`http://localhost:3000/contacts/${contact_id}`)
-        .json(contact);
+        .location(`api/contacts/${item.id}`)
+        .json(serializeContact(item));
+    })
+        .catch(next)
     })
 
   
-
-
 contactsRouter
   .route('/contacts/:id')
-  .get((req, res) => {
-    const { id } = req.params;
-    const contact = contacts.find(contact => contact.contact_id == id)
-    res
-      .json(contact)
+  // .all(requireAuth)
+  .all((req, res, next) => {
+    ContactsService.getById(
+      req.app.get('db'),
+      req.params.id
+    )
+      .then(item => {
+      if(!item){
+        return res.status(404).json({
+          error:{message: 'Contact does not exist'}
+        })
+      }
+      res.item = item
+      next()
+    })
+    .catch(next)
+  })
+  .get((req, res, next) => {
+    res.json(serializeContact(res.item))
   })
 
   .delete((req, res) => {
-    const { id } = req.params;
+    ContactsService.deleteContact(
+      req.app.get('db'),
+      req.params.id
+    )
+      .then((numRowsAffected) => {
+        res.status(204).end()
+      })
+      .catch(next)
+    })
+  .patch(bodyParser, (req, res, next) => {
+    const { user_id, contact_type, business_name, name, title, events, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, favorites, notes } = req.body;
+    const contactToUpdate = { user_id, contact_type, business_name, name, title, events, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, favorites, notes }
 
-    const contactsIndex = contacts.findIndex(contact => contact.contact_id == id);
+    const numberOfValues = object.values(itemToUpdate).filter(Boolean).length
+    if (numberOfValues === 0){
+      return res.status(400).json({
+        error: {message: "Request body must contain a value to update"}
+      })
+    }
 
-    contacts.splice(contactsIndex, 1);
-    res
-      .status(204)
-      .end();
-  })
+    ContactsService.updateContact(
+      req.app.get('db'),
+      req.params.id,
+      itemToUpdate
+    )
+
+    .then(numRowsAffected => {
+      res.status(204).end()
+    })
+    .catch(next)
+
+  })    
 
 
 module.exports = contactsRouter
