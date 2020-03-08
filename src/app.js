@@ -10,6 +10,7 @@ app.use(express.json());
 const contactsRouter = require('./contacts/contacts-router')
 const catalogRouter = require('./catalog/catalog-router')
 const eventsRouter = require('./events/events-router')
+const catalogEventsRouter = require('./catalog_events/catalog-events-router')
 
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
@@ -35,7 +36,7 @@ app.use(function validateBearerToken(req, res, next) {
 app.use('/api', contactsRouter)
 app.use('/api', catalogRouter)
 app.use('/api', eventsRouter)
-
+app.use('/api', catalogEventsRouter)
 
 app.use(function errorHandler(error, req, res, next) {
   let response

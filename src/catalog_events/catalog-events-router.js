@@ -1,6 +1,6 @@
 const express = require('express')
-const CatalogService = require('./catalog-service')
-const catalogRouter = express.Router()
+const CatalogEventsService = require('./catalog-events-service')
+const catalogEventsRouter = express.Router()
 const bodyParser = express.json()
 const { requireAuth } = require('../middleware/jwt-auth')
 jsonParser = express.json()
@@ -12,14 +12,16 @@ const serializeCatalogEventsItem = item => ({
 
 
 
-catalogEventRouter
-  .route('/catalog-events')
+catalogEventsRouter
+  .route('/catalogevents')
   // .all(requireAuth)
   .get((req, res, next) => {
-    const knexInstance = req.app.get('db')
-    CatalogService.getAllCatalogEntries(knexInstance)
-      .then(catalog => {
-        res.json(catalog.map(serializeCatalogEventsItem))
+//   const { key, value } = req.body;
+  const knexInstance = req.app.get('db')
+    CatalogEventsService.getCatalogAndEvents(knexInstance)
+      .then(response => {
+          console.log("here is response", response)
+        res.json(response.map(serializeCatalogEventsItem))
       })
       .catch(next)
   })
@@ -51,62 +53,62 @@ catalogEventRouter
   })
 
 
-catalogEventRouter
-  .route('/catalog/:id')
-  .all(requireAuth)
-  .all((req, res, next) => {
-    CatalogService.getById(
-      req.app.get('db'),
-      req.params.id
-    )
-      .then(item => {
-        if (!item) {
-          return res.status(404).json({
-            error: { message: 'Catalog item does not exist' }
-          })
-        }
-        res.item = item
-        next()
-      })
-      .catch(next)
-  })
+// catalogEventRouter
+//   .route('/catalog/:id')
+//   .all(requireAuth)
+//   .all((req, res, next) => {
+//     CatalogService.getById(
+//       req.app.get('db'),
+//       req.params.id
+//     )
+//       .then(item => {
+//         if (!item) {
+//           return res.status(404).json({
+//             error: { message: 'Catalog item does not exist' }
+//           })
+//         }
+//         res.item = item
+//         next()
+//       })
+//       .catch(next)
+//   })
 
-  .get((req, res, next) => {
-    res.json(serializeCatalogItem(res.item))
-  })
+//   .get((req, res, next) => {
+//     res.json(serializeCatalogItem(res.item))
+//   })
 
-  .delete((req, res, next) => {
-    CatalogService.deleteCatalogItem(
-      req.app.get('db'),
-      req.params.id
-    )
-      .then((numRowsAffected) => {
-        res.status(204).end()
-      })
-      .catch(next)
-  })
+//   .delete((req, res, next) => {
+//     CatalogService.deleteCatalogItem(
+//       req.app.get('db'),
+//       req.params.id
+//     )
+//       .then((numRowsAffected) => {
+//         res.status(204).end()
+//       })
+//       .catch(next)
+//   })
 
-  .patch(jsonParser, (req, res, next) => {
-    const { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, images, subject, quantity, location, sold_date, sold_to, history } = req.body;
-    const itemToUpdate = { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, images, subject, quantity, location, sold_date, sold_to, history };
+//   .patch(jsonParser, (req, res, next) => {
+//     const { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, images, subject, quantity, location, sold_date, sold_to, history } = req.body;
+//     const itemToUpdate = { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, images, subject, quantity, location, sold_date, sold_to, history };
 
-    const numberOfValues = Object.values(itemToUpdate).filter(Boolean).length
-    if (numberOfValues === 0){
-      return res.status(400).json({
-        error: {message: "Request body must contain a value to update"}
-      })
-    }
+//     const numberOfValues = Object.values(itemToUpdate).filter(Boolean).length
+//     if (numberOfValues === 0){
+//       return res.status(400).json({
+//         error: {message: "Request body must contain a value to update"}
+//       })
+//     }
 
-    CatalogService.updateCatalogItem(
-      req.app.get('db'),
-      req.params.id,
-      itemToUpdate
-    )
-      .then(numRowsAffected => {
-        res.status(204).end()
-      })
-      .catch(next)
-  })
+//     CatalogService.updateCatalogItem(
+//       req.app.get('db'),
+//       req.params.id,
+//       itemToUpdate
+//     )
+//       .then(numRowsAffected => {
+//         res.status(204).end()
+//       })
+//       .catch(next)
+//   })
 
 
-module.exports = catalogRouter
+module.exports = catalogEventsRouter
