@@ -4,13 +4,14 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
-const { CLIENT_ORIGIN } = require('./config');
+//const { CLIENT_ORIGIN } = require('./config');
 const app = express()
 app.use(express.json());
 const contactsRouter = require('./contacts/contacts-router')
 const catalogRouter = require('./catalog/catalog-router')
 const eventsRouter = require('./events/events-router')
 const catalogEventsRouter = require('./catalog_events/catalog-events-router')
+const catalogContactsRouter = require('./catalog_contacts/catalog-contacts-router')
 
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
@@ -37,6 +38,10 @@ app.use('/api', contactsRouter)
 app.use('/api', catalogRouter)
 app.use('/api', eventsRouter)
 app.use('/api', catalogEventsRouter)
+app.use('/api', catalogContactsRouter)
+
+// app.use('/uploads', express.static('uploads'));
+
 
 app.use(function errorHandler(error, req, res, next) {
   let response
