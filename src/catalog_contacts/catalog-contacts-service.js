@@ -1,11 +1,8 @@
 const CatalogContactsService = {
 
-    getCatalogAndContacts(knex, key, value){
-        console.log("this is in the service")
-        // const query = {}
-        // query[key] = value;
+    getCatalogAndContacts(knex, req){
         return knex.select('*').from('studiokeeper_catalog_contacts_favorites')
-        // .where(query)
+        .where(req)
 }
 }
 

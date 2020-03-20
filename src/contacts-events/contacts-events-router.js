@@ -1,55 +1,78 @@
 const express = require('express')
-const CatalogContactsService = require('./catalog-contacts-service')
-const catalogContactsRouter = express.Router()
+const ContactsEventsService = require('./contacts-events-service')
+const contactsEventsRouter = express.Router()
 const bodyParser = express.json()
 const { requireAuth } = require('../middleware/jwt-auth')
 jsonParser = express.json()
 
-const serializeCatalogContactsItem = item => ({
-  "catalog_id": item.catalog_id,
-  "contact_id": item.contact_id,
+const serializeContactsEventsItem = item => ({
+    "contact_id": item.contact_id,
+    "event_id": item.event_id, 
 })
 
 
-
-catalogContactsRouter
-  .route('/catalogcontacts')
-  // .all(requireAuth)
-  .get((req, res, next) => {
+contactsEventsRouter
+  .route('/contactsevents')
+   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
-    CatalogContactsService.getCatalogAndContacts(knexInstance, req.query)
-      .then(response => {
-        res.json(response.map(serializeCatalogContactsItem))
-      })
-      .catch(next)
-  })
+    console.log(req.query)
+
+    ContactsEventsService.getContactsAndEvents(knexInstance, req.query)
+    .then(response => {
+      res.json(response.map(serializeContactsEventsItem))
+    })
+   })
+
+
+    // const { key, value } = req.body;
+    
+//   // .all(requireAuth)
+//   .all((req, res, next) => {
+//     CatalogEventsService.getCatalogAndEvents(knexInstance, req.params.field, req.params.id
+//       )
+//     .then(response => {
+//       if(!item)
+//       return res.status(404).json({
+//         error: {message:'Item does not exist'}
+//       })
+//     }
+//       res.item = items
+//       next()
+//   })
+//   .catch(next)
+// })
+
+    
+  
+      
+  //     .catch(next)
+  // })
 
   .post(bodyParser, (req, res, next) => {
 
-    const { contact_id, catalog_id } = req.body;
-    const newCatalogContactItem = { catalog_id, contact_id }
-    if (!contact_id || !catalog_id) {
+    const { event_id, catalog_id } = req.body;
+    const newCatalogEventItem = { catalog_id, event_id}
+    if (!event_id || !catalog_id) {
       return res
         .status(400)
         .json({
-          error: { message: 'A contact and catalog item are required' }
+          error: { message: 'An event and catalog item are required' }
         })
     }
-  })
 
-//     newCatalogEventItem.user_id = user_id
-//     CatalogService.insertCatalogEntry(
-//       req.app.get('db'),
-//       newCatalogItem
-//     )
-//       .then(item => {
-//         res
-//           .status(201)
-//           .location(`api/catalog/${item.id}`)
-//           .json(serializeCatalogItem(item))
-//       })
-//       .catch(next)
-//   })
+    newCatalogEventItem.user_id = user_id
+    CatalogService.insertCatalogEntry(
+      req.app.get('db'),
+      newCatalogItem
+    )
+      .then(item => {
+        res
+          .status(201)
+          .location(`api/catalog/${item.id}`)
+          .json(serializeCatalogItem(item))
+      })
+      .catch(next)
+  })
 
 
 // catalogEventRouter
@@ -110,4 +133,4 @@ catalogContactsRouter
 //   })
 
 
-module.exports = catalogContactsRouter
+module.exports = contactsEventsRouter

@@ -30,6 +30,19 @@ const CatalogService = {
         .update(newCatalogItemFields)
     },
 
+    getAllImages(knex){
+        return knex.select('*').from('studiokeeper_images')
+    },
+
+
+    insertImage(knex,image_name, catalog_id){
+        return db('studiokeeper_images')
+              .where({ user_name })
+              .update({ image_name, catalog_id})
+              .returning('*')
+              .then(([user]) => user)
+          },
+    
 }
 
 module.exports = CatalogService

@@ -8,7 +8,7 @@ const serializeEventItem = event => ({
       "name": event.name,
       "website": event.website,
       "location": event.location,
-      "event_dates": event.dates,
+      "event_dates": event.event_dates,
       "application_due_date": event.application_due_date,
       "notes": event.notes,
       "submission_requirements": event.submission_requirements,
@@ -69,7 +69,7 @@ eventsRouter
 
 
   .get((req, res) => {
-    res.json(seralizeEventItem(res.event))  
+    res.json(serializeEventItem(res.event))  
   })
 
   .delete((req, res, next) => {

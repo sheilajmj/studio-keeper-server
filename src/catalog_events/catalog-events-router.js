@@ -11,20 +11,42 @@ const serializeCatalogEventsItem = item => ({
 })
 
 
-
 catalogEventsRouter
   .route('/catalogevents')
-  // .all(requireAuth)
-  .get((req, res, next) => {
-//   const { key, value } = req.body;
-  const knexInstance = req.app.get('db')
-    CatalogEventsService.getCatalogAndEvents(knexInstance)
-      .then(response => {
-          console.log("here is response", response)
-        res.json(response.map(serializeCatalogEventsItem))
-      })
-      .catch(next)
-  })
+   .get((req, res, next) => {
+    const knexInstance = req.app.get('db')
+    console.log(req.query)
+
+    CatalogEventsService.getCatalogAndEvents(knexInstance, req.query)
+    .then(response => {
+      res.json(response.map(serializeCatalogEventsItem))
+    })
+   })
+
+
+    // const { key, value } = req.body;
+    
+//   // .all(requireAuth)
+//   .all((req, res, next) => {
+//     CatalogEventsService.getCatalogAndEvents(knexInstance, req.params.field, req.params.id
+//       )
+//     .then(response => {
+//       if(!item)
+//       return res.status(404).json({
+//         error: {message:'Item does not exist'}
+//       })
+//     }
+//       res.item = items
+//       next()
+//   })
+//   .catch(next)
+// })
+
+    
+  
+      
+  //     .catch(next)
+  // })
 
   .post(bodyParser, (req, res, next) => {
 

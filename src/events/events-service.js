@@ -4,10 +4,10 @@ const EventsService = {
         return knex.select('*').from('studiokeeper_events')
     },
 
-    insertCatalogEntry(knex, newCatalogEntry){
+    insertEvent(knex, newEventEntry){
         return knex
             .insert(newCatalogEntry)
-            .into('studiokeeper_catalog')
+            .into('studiokeeper_events')
             .returning('*')
             .then(rows => {
                 return rows[0]
@@ -15,19 +15,19 @@ const EventsService = {
     },
 
     getById(knex,id){
-        return knex.from('studiokeeper_catalog').select('*').where('id', id).first()
+        return knex.from('studiokeeper_events').select('*').where('id', id).first()
     },
 
-    deleteCatalogItem(knex, id) {
-        return knex('studiokeeper_catalog')
+    deleteEvent(knex, id) {
+        return knex('studiokeeper_events')
         .where({ id })
         .delete()
     },
 
-    updateCatalogItem(knex, id, newCatalogItemFields){
-        return knex('studiokeeper_catalog')
+    updateEvent(knex, id, newEventFields){
+        return knex('studiokeeper_events')
         .where({ id })
-        .update(newCatalogItemFields)
+        .update(newEventFields)
     },
 
 }

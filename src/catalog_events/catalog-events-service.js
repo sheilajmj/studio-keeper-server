@@ -1,11 +1,9 @@
 const CatalogEventsService = {
 
-    getCatalogAndEvents(knex, key, value){
-        // const query = {}
-        // query[key] = value;
+    getCatalogAndEvents(knex, req){
         return knex.select('*').from('studiokeeper_catalog_events_connection')
-        // .where(query)
-}
+        .where(req)
+    }
 }
 
 module.exports = CatalogEventsService

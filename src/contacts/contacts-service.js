@@ -1,10 +1,11 @@
 const ContactsService = {
 
-    getAllContacts(knex){
+    getAllContacts(knex, req){
         return knex.select('*').from('studiokeeper_contacts')
+        .where(req)
     },
 
-    insertCatalogEntry(knex, newContact){
+    insertContact(knex, newContact){
         return knex
             .insert(newContact)
             .into('studiokeeper_contacts')
@@ -18,13 +19,13 @@ const ContactsService = {
         return knex.from('studiokeeper_contacts').select('*').where('id', id).first()
     },
 
-    deleteCatalogItem(knex, id) {
+    deleteContactItem(knex, id) {
         return knex('studiokeeper_contacts')
         .where({ id })
         .delete()
     },
 
-    updateCatalogItem(knex, id, newContactFields){
+    updateContactItem(knex, id, newContactFields){
         return knex('studiokeeper_contacts')
         .where({ id })
         .update(newContactFields)

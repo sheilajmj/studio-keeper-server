@@ -12,6 +12,8 @@ const catalogRouter = require('./catalog/catalog-router')
 const eventsRouter = require('./events/events-router')
 const catalogEventsRouter = require('./catalog_events/catalog-events-router')
 const catalogContactsRouter = require('./catalog_contacts/catalog-contacts-router')
+const catalogImagesRouter = require ('./catalog_images/catalog-images-router')
+const contactsEventsRouter = require('./contacts-events/contacts-events-router')
 
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
@@ -21,6 +23,7 @@ const morganOption = (NODE_ENV === 'production')
 app.use(cors())
 
 app.use(morgan(morganOption))
+app.use(express.static('uploads'))
 app.use(helmet())
 
 app.use(function validateBearerToken(req, res, next) {
@@ -39,6 +42,8 @@ app.use('/api', catalogRouter)
 app.use('/api', eventsRouter)
 app.use('/api', catalogEventsRouter)
 app.use('/api', catalogContactsRouter)
+app.use('/api', catalogImagesRouter)
+app.use('/api', contactsEventsRouter)
 
 // app.use('/uploads', express.static('uploads'));
 
@@ -57,3 +62,9 @@ app.use(function errorHandler(error, req, res, next) {
 
 
 module.exports = app
+
+
+
+
+
+

@@ -28,17 +28,17 @@ contactsRouter
   .route('/contacts')
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
-  ContactsService.getAllContacts(knexInstance)
+  ContactsService.getAllContacts(knexInstance, req.query)
     .then(contact => {
       res.json(contact.map(serializeContact));
     })
     .catch(next)
   })
 
-  .post(bodyParser, (req, res) => {
-
-      const { user_id, contact_type, business_name, name, title, events, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, favorites, notes } = req.body;
-      const newContact = { user_id, contact_type, business_name, name, title, events, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, favorites, notes }
+  .post(bodyParser, (req, res, next) => {
+    console.log("HIT IT!")
+      const { user_id, contact_type, business_name, name, title, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, notes } = req.body;
+      const newContact = { user_id, contact_type, business_name, name, title, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, notes }
       if (!name && !business_name) {
         return res
           .status(400)
@@ -47,16 +47,14 @@ contactsRouter
           }) 
       }
 
-      newContact.user_id = user_id
-      ContactsService.insertCatalogEntry(
+      newContact.user_id = 1
+      //change user_id to the value of logged in user_id
+      ContactsService.insertContact(
         req.app.get('db'),
         newContact
       )
-      then(item => {
-        res
-        .status(201)
-        .location(`api/contacts/${item.id}`)
-        .json(serializeContact(item));
+      .then(item => {
+        item.id
     })
         .catch(next)
     })
@@ -96,6 +94,7 @@ contactsRouter
       .catch(next)
     })
   .patch(bodyParser, (req, res, next) => {
+    console.log("made it here!")
     const { user_id, contact_type, business_name, name, title, events, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, favorites, notes } = req.body;
     const contactToUpdate = { user_id, contact_type, business_name, name, title, events, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, favorites, notes }
 
