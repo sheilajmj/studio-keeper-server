@@ -32,5 +32,33 @@ VALUES
     ('1', 'Individual', NULL, 'Alison Falcon', '', 'afalcon@gmix.com', '101-224-9898', '8221 Atlier Pl.', '#99', 'Richmond', 'VA', '55555', 'USA', NULL, 'Best sister ever');
 
 
+INSERT INTO studiokeeper_catalog_contacts_favorites (catalog_id, contact_id)
+VALUES
+('3', '1'),
+('3', '2'),
+('2', '1'),
+('2', '2' ),
+('2', '3' );
+
+INSERT INTO studiokeeper_catalog_events_connection (catalog_id, event_id)
+VALUES
+('1', '2'),
+('1', '1'),
+('2', '2'),
+('3', '1'),
+('3', '2');
+
+INSERT INTO studiokeeper_contacts_events_relationship (contact_id, event_id)
+VALUES
+('1', '2'),
+('2', '2'),
+('3', '1'),
+('2', '1' );
+
+INSERT INTO studiokeeper_images (user_id, image_name, catalog_id)   
+VALUES
+('1', 'image1.jpg', '1'),
+('1', 'image2.jpg', '2'),
+('1', 'image3.jpg', '3');
 
 COMMIT;

@@ -27,10 +27,10 @@ eventsRouter
     .catch(next)
 })
 
-  .post(bodyParser, (req, res) => {
-      const { event_type, name, website, location, event_dates, application_due_date, notes, submission_requirements } = req.body;
-      const newEventItem = {event_type, name, website, location, event_dates, application_due_date, notes, submission_requirements }
-      if (!name) {
+  .post(bodyParser, (req, res, next) => {
+      const { user_id, event_type, name, website, location, event_dates, application_due_date, notes, submission_requirements } = req.body;
+      const newEventItem = {user_id, event_type, name, website, location, event_dates, application_due_date, notes, submission_requirements }
+      if (name === "") {
         return res
         .status(400)
         .json({
@@ -38,11 +38,19 @@ eventsRouter
         })
       }
   
-      newEventItem.user_id = user_id
-      EventService.insertEventItem(
+      newEventItem.user_id = 1
+      //change to logged in user
+      EventsService.insertEvent(
         req.app.get('db'),
         newEventItem
       )
+      .then(item => {
+        console.log(item, "this is item in EVENTS ROUTER")
+        res
+        .status(201)
+        .location(`api/events/${item.id}`)
+        .json(serializeEventItem(item))
+      })
      .catch(next)
     })
     

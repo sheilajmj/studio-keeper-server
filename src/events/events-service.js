@@ -4,9 +4,10 @@ const EventsService = {
         return knex.select('*').from('studiokeeper_events')
     },
 
-    insertEvent(knex, newEventEntry){
+    insertEvent(knex, newEventItem){
+        console.log(newEventItem, "This is in insertEvent, event-service")
         return knex
-            .insert(newCatalogEntry)
+            .insert(newEventItem)
             .into('studiokeeper_events')
             .returning('*')
             .then(rows => {
@@ -18,13 +19,13 @@ const EventsService = {
         return knex.from('studiokeeper_events').select('*').where('id', id).first()
     },
 
-    deleteEvent(knex, id) {
+    deleteEventItem(knex, id) {
         return knex('studiokeeper_events')
-        .where({ id })
+        .where( { id } )
         .delete()
     },
 
-    updateEvent(knex, id, newEventFields){
+    updateEventItem(knex, id, newEventFields){
         return knex('studiokeeper_events')
         .where({ id })
         .update(newEventFields)

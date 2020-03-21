@@ -4,6 +4,9 @@ const ContactsService = require('../contacts/contacts-service')
 const { requireAuth } = require('../middleware/jwt-auth')
 const bodyParser = express.json()
 
+
+jsonParser = express.json()
+
 const serializeContact = contact => ({
   "id": contact.id,
   "contact_type": contact.contact_type,
@@ -36,7 +39,6 @@ contactsRouter
   })
 
   .post(bodyParser, (req, res, next) => {
-    console.log("HIT IT!")
       const { user_id, contact_type, business_name, name, title, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, notes } = req.body;
       const newContact = { user_id, contact_type, business_name, name, title, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, notes }
       if (!name && !business_name) {
@@ -54,7 +56,11 @@ contactsRouter
         newContact
       )
       .then(item => {
-        item.id
+        console.log(item, 'THIS IS ITEM')
+        res
+        .status(201)
+        .location(`api/contact/${item.id}`)
+        .json(serializeContact(item))
     })
         .catch(next)
     })
@@ -83,8 +89,8 @@ contactsRouter
     res.json(serializeContact(res.item))
   })
 
-  .delete((req, res) => {
-    ContactsService.deleteContact(
+  .delete((req, res, next) => {
+    ContactsService.deleteContactItem(
       req.app.get('db'),
       req.params.id
     )
@@ -93,22 +99,24 @@ contactsRouter
       })
       .catch(next)
     })
-  .patch(bodyParser, (req, res, next) => {
-    console.log("made it here!")
+
+  .patch(jsonParser, (req, res, next) => {
+    console.log(req, "ReQ")
+
     const { user_id, contact_type, business_name, name, title, events, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, favorites, notes } = req.body;
     const contactToUpdate = { user_id, contact_type, business_name, name, title, events, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, favorites, notes }
 
-    const numberOfValues = object.values(itemToUpdate).filter(Boolean).length
+    const numberOfValues = Object.values(contactToUpdate).filter(Boolean).length
     if (numberOfValues === 0){
       return res.status(400).json({
         error: {message: "Request body must contain a value to update"}
       })
     }
 
-    ContactsService.updateContact(
+    ContactsService.updateContactItem(
       req.app.get('db'),
       req.params.id,
-      itemToUpdate
+      contactToUpdate
     )
 
     .then(numRowsAffected => {
