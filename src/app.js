@@ -14,6 +14,7 @@ const catalogEventsRouter = require('./catalog_events/catalog-events-router')
 const catalogContactsRouter = require('./catalog_contacts/catalog-contacts-router')
 const catalogImagesRouter = require ('./catalog_images/catalog-images-router')
 const contactsEventsRouter = require('./contacts-events/contacts-events-router')
+const authRouter = require('./auth/auth-router')
 
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
@@ -44,6 +45,7 @@ app.use('/api', catalogEventsRouter)
 app.use('/api', catalogContactsRouter)
 app.use('/api', catalogImagesRouter)
 app.use('/api', contactsEventsRouter)
+app.use('./api/auth', authRouter)
 
 // app.use('/uploads', express.static('uploads'));
 
