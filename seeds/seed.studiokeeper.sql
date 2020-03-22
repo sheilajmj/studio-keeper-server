@@ -9,10 +9,10 @@ TRUNCATE
 
 INSERT INTO studiokeeper_users (full_name, nickname, user_name, password)
 VALUES
-('Penelope_Painter', 'Penny', 'painter99', '123456'),
-('Baruk_Bagmaker', 'Baruk', 'sewit5', '654321'),
-('Jasmine_Jewelrymaker', 'Jazz', 'gem5000', '11223344'),
-('Radwan_Writer', 'Rad', 'universalwriter', '224466' );
+('Penelope_Painter', 'Penny', 'painter99', '$2a$12$BgMUQhkCq62SXFKAhYuycOUOIRpmp9AHKmoMKsSBTUmaVa3sQKTwG'),
+('Baruk_Bagmaker', 'Baruk', 'sewit5', '$2a$12$46xlFRVB.nLK7sgX1hN2a.AjZw/SGyJ7whvgVqgACUU6KgxNSzs/q'),
+('Jasmine_Jewelrymaker', 'Jazz', 'gem5000', '$2a$12$aEBAcRZH46piEp/ESMqRJ.otkWgjV0iU51.ZvR6S3qB9Vprae1HSa'),
+('Radwan_Writer', 'Rad', 'universalwriter', '$2a$12$zfBWrjwGLwYRxQauxW9J0u19pygtFKid9Qtog05n/bNiGefjo9mW2');
 
 INSERT INTO studiokeeper_events (user_id, event_type, name, website, location, event_dates, application_due_date, notes, submission_requirements)
 VALUES

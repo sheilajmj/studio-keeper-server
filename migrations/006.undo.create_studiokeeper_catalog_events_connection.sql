@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS studiokeeper_catalog_events_connection;
+DROP TABLE IF EXISTS studiokeeper_catalog_events_connection CASCADE;
