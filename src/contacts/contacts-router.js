@@ -13,7 +13,6 @@ const serializeContact = contact => ({
   "business_name": contact.business_name,
   "name": contact.name,
   "title": contact.title,
-  //"events": [],
   "email": contact.email,
   "phone": contact.phone,
   "address_street": contact.address_street,
@@ -23,7 +22,6 @@ const serializeContact = contact => ({
   "address_zip": contact.address_zip,
   "address_country": contact.address_country,
   "website": contact.website,
-  //"favorites": ["001", "002"],
   "notes": contact.notes
 })
 
@@ -49,7 +47,8 @@ contactsRouter
           }) 
       }
 
-      newContact.user_id = 1
+      newContact.user_id = req.body.user_id
+      console.log(req.body.user, "NEW USERID")
       //change user_id to the value of logged in user_id
       ContactsService.insertContact(
         req.app.get('db'),

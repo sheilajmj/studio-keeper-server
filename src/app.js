@@ -15,6 +15,7 @@ const catalogContactsRouter = require('./catalog_contacts/catalog-contacts-route
 const catalogImagesRouter = require ('./catalog_images/catalog-images-router')
 const contactsEventsRouter = require('./contacts-events/contacts-events-router')
 const authRouter = require('./auth/auth-router')
+const usersRouter = require('./Users/users-router')
 
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
@@ -27,18 +28,6 @@ app.use(morgan(morganOption))
 app.use(express.static('uploads'))
 app.use(helmet())
 
-// app.use(function validateBearerToken(req, res, next) {
-//   const apiToken = process.env.API_TOKEN
-//   const authToken = req.get('Authorization')
-//   console.log(authToken, "AUTHTOKEN in APP")
-
-//   if (!authToken || authToken.split(' ')[1] !== apiToken) {
-//     return res.status(401).json({ error: 'Unauthorized request' })
-//   }
-//   // move to the next middleware
-//   next()
-// })
-
 app.use('/api', contactsRouter)
 app.use('/api', catalogRouter)
 app.use('/api', eventsRouter)
@@ -46,9 +35,9 @@ app.use('/api', catalogEventsRouter)
 app.use('/api', catalogContactsRouter)
 app.use('/api', catalogImagesRouter)
 app.use('/api', contactsEventsRouter)
-app.use('./api/auth', authRouter)
-
-// app.use('/uploads', express.static('uploads'));
+app.use('/api/auth', authRouter)
+app.use('/api', usersRouter)
+app.use('/uploads', express.static('uploads'));
 
 
 app.use(function errorHandler(error, req, res, next) {

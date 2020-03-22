@@ -169,6 +169,8 @@ catalogRouter
 })
 
 .post(bodyParser, upload.single('catalogImage'), (req, res, next) => {
+
+  console.log(req.body, "FILE PATH?")
   CatalogService.insertImage(
     req.app.get('db'),
     // req.user.user_name,

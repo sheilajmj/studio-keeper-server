@@ -9,7 +9,7 @@ TRUNCATE
 
 INSERT INTO studiokeeper_users (full_name, nickname, user_name, password)
 VALUES
-('Penelope_Painter', 'Penny', 'painter99', '$2a$12$BgMUQhkCq62SXFKAhYuycOUOIRpmp9AHKmoMKsSBTUmaVa3sQKTwG'),
+('Penelope_Painter', 'Penny', 'painter99', '$2a$12$QJQ9HC/WXPYSlE2ut.miLettFXPYTvYMW87jcxHf3mBZ74gTN1pES'),
 ('Baruk_Bagmaker', 'Baruk', 'sewit5', '$2a$12$46xlFRVB.nLK7sgX1hN2a.AjZw/SGyJ7whvgVqgACUU6KgxNSzs/q'),
 ('Jasmine_Jewelrymaker', 'Jazz', 'gem5000', '$2a$12$aEBAcRZH46piEp/ESMqRJ.otkWgjV0iU51.ZvR6S3qB9Vprae1HSa'),
 ('Radwan_Writer', 'Rad', 'universalwriter', '$2a$12$zfBWrjwGLwYRxQauxW9J0u19pygtFKid9Qtog05n/bNiGefjo9mW2');
