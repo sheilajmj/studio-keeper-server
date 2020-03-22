@@ -4,7 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
-//const { CLIENT_ORIGIN } = require('./config');
+const { CLIENT_ORIGIN } = require('./config');
 const app = express()
 app.use(express.json());
 const contactsRouter = require('./contacts/contacts-router')
@@ -27,16 +27,17 @@ app.use(morgan(morganOption))
 app.use(express.static('uploads'))
 app.use(helmet())
 
-app.use(function validateBearerToken(req, res, next) {
-  const apiToken = process.env.API_TOKEN
-  const authToken = req.get('Authorization')
+// app.use(function validateBearerToken(req, res, next) {
+//   const apiToken = process.env.API_TOKEN
+//   const authToken = req.get('Authorization')
+//   console.log(authToken, "AUTHTOKEN in APP")
 
-  if (!authToken || authToken.split(' ')[1] !== apiToken) {
-    return res.status(401).json({ error: 'Unauthorized request' })
-  }
-  // move to the next middleware
-  next()
-})
+//   if (!authToken || authToken.split(' ')[1] !== apiToken) {
+//     return res.status(401).json({ error: 'Unauthorized request' })
+//   }
+//   // move to the next middleware
+//   next()
+// })
 
 app.use('/api', contactsRouter)
 app.use('/api', catalogRouter)
