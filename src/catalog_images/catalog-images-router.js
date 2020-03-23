@@ -1,78 +1,90 @@
 const express = require('express')
 const CatalogImagesService = require('./catalog-images-service')
-const catalogImagesRouter = express.Router()
+const catalogImageRouter = express.Router()
 const bodyParser = express.json()
 const { requireAuth } = require('../middleware/jwt-auth')
 jsonParser = express.json()
+const multer = require('multer')
 
-const serializeCatalogImage = item => ({
-    "catalog_id": item.catalog_id,
-    "image_name": item.image_name 
-})
+const storage = multer.diskStorage({
+  destination: function(req, res, cb) {
+    cb(null, './public/uploads');
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString() + file.originalname);
+  }
+});
 
-
-catalogImagesRouter
-  .route('/catalogimages')
-  .get((req, res, next) => {
-    const knexInstance = req.app.get('db')
-
-    CatalogImagesService.getCatalogImages(knexInstance, req.query)
-    .then(response => {
-      res.json(response.map(serializeCatalogImage))
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    res.json({
+      error: `Wrong file type submitted. Upload only .png or .jpeg`
     })
-    .catch(next)
+    cb(null, false);
+  }
+}
+
+const upload = multer({ storage: storage, limits: {
+  fileSize: 1024 * 1024 * 5,
+  fileFilter: fileFilter
+} }).single('images');
+
+
+// const serializeCatalogImageItem = item => ({
+//     "catalog_id": item.catalog_id,
+//     "image_name": item.image_name 
+// })
+
+
+catalogImageRouter
+   .route('/images')
+   // .all(requireAuth)
+   .get((req, res, next) => {
+     const knexInstance = req.app.get('db')
+     CatalogService.getAllImages(knexInstance)
+       .then(catalog => {
+         res.json(catalog.map(serializeCatalogImage))
+       })
+       .catch(next)
+   })
+   
+   .post(bodyParser, upload, (req, res, next) => {
+     console.log("REQ>BODY", req.file)
+      CatalogImagesService.insertImage(
+        req.app.get('db'),
+        console.log("req.file === ", req.body.file)
+      )
+      
    })
 
 
-    // const { key, value } = req.body;
-    
-//   // .all(requireAuth)
-//   .all((req, res, next) => {
-//     CatalogEventsService.getCatalogAndEvents(knexInstance, req.params.field, req.params.id
-//       )
-//     .then(response => {
-//       if(!item)
-//       return res.status(404).json({
-//         error: {message:'Item does not exist'}
-//       })
-//     }
-//       res.item = items
-//       next()
-//   })
-//   .catch(next)
-// })
+  // .post(bodyParser, (req, res, next) => {
 
-    
-  
-      
+  //   const { event_id, catalog_id } = req.body;
+  //   const newCatalogEventItem = { catalog_id, event_id}
+  //   if (!event_id || !catalog_id) {
+  //     return res
+  //       .status(400)
+  //       .json({
+  //         error: { message: 'An event and catalog item are required' }
+  //       })
+  //   }
+
+  //   newCatalogEventItem.user_id = user_id
+  //   CatalogService.insertCatalogEntry(
+  //     req.app.get('db'),
+  //     newCatalogItem
+  //   )
+  //     .then(item => {
+  //       res
+  //         .status(201)
+  //         .location(`api/catalog/${item.id}`)
+  //         .json(serializeCatalogItem(item))
+  //     })
   //     .catch(next)
   // })
-
-  .post(bodyParser, (req, res, next) => {
-
-    const { event_id, catalog_id } = req.body;
-    const newCatalogEventItem = { catalog_id, event_id}
-    if (!event_id || !catalog_id) {
-      return res
-        .status(400)
-        .json({
-          error: { message: 'An event and catalog item are required' }
-        })
-    }
-
-    newCatalogEventItem.user_id = user_id
-    CatalogService.insertCatalogEntry(
-      req.app.get('db'),
-      newCatalogItem
-    )
-      .then(item => {
-        res
-          .status(201)
-          .location(`api/catalog/${item.id}`)
-          .json(serializeCatalogItem(item))
-      })
-      .catch(next)
-  })
 
 
 // catalogEventRouter
@@ -133,4 +145,37 @@ catalogImagesRouter
 //   })
 
 
-module.exports = catalogImagesRouter
+module.exports = catalogImageRouter
+
+
+
+  
+  // const file = req.file
+  // const name = req.body.name
+  // if (!file){
+  //   const error = new Error('Please select a file to upload')
+  //   error.httpsStatusCode = 400
+  //   return next(error)
+  // }
+  // req.send(file)
+  // CatalogService.insertImage(
+  //   req.app.get('db'),
+  //   user_id = 1,
+  //   //change this to be hte logged in user
+  //   // image_name: req.body.name
+  //   // catalog_id = req.body.catalog_id,
+    
+  // )
+//   .then( res => {
+//     res.status(204).send('Image uploaded successfully');
+//   })
+//   .catch(err => {
+//     return res.status(500).json({
+//       error: `Something went wrong`
+//     })
+//   })
+//   .catch(next)
+// })
+
+
+// Add user details

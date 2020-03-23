@@ -12,11 +12,11 @@ const catalogRouter = require('./catalog/catalog-router')
 const eventsRouter = require('./events/events-router')
 const catalogEventsRouter = require('./catalog_events/catalog-events-router')
 const catalogContactsRouter = require('./catalog_contacts/catalog-contacts-router')
-const catalogImagesRouter = require ('./catalog_images/catalog-images-router')
+const catalogImageRouter = require ('./catalog_images/catalog-images-router')
 const contactsEventsRouter = require('./contacts-events/contacts-events-router')
 const authRouter = require('./auth/auth-router')
 const usersRouter = require('./Users/users-router')
-
+const catalogImagesRouter = require('./catalog_images/catalog-images-router')
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
   : 'common';
@@ -40,6 +40,7 @@ app.use('/api', usersRouter)
 app.use('/uploads', express.static('uploads'));
 
 
+
 app.use(function errorHandler(error, req, res, next) {
   let response
   if (NODE_ENV === 'production') {
@@ -50,7 +51,6 @@ app.use(function errorHandler(error, req, res, next) {
   }
   res.status(500).json(response)
 })
-
 
 
 module.exports = app

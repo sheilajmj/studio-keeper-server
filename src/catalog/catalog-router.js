@@ -4,29 +4,7 @@ const catalogRouter = express.Router()
 const bodyParser = express.json()
 const { requireAuth } = require('../middleware/jwt-auth')
 const path = require('path')
-const multer = require('multer')
-const storage = multer.diskStorage({
-  destination: function(req, res, cb) {
-    cb(null, './uploads/');
-  },
-  filename: function(req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
-  }
-});
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
-  } else {
-    res.json({
-      error: `Wrong file type submitted. Upload only .png or .jpeg`
-    })
-    cb(null, false);
-  }
-}
-const upload = multer({ storage: storage, limits: {
-  fileSize: 1024 * 1024 * 5,
-  fileFilter: fileFilter
-} })
+
 
 
 jsonParser = express.json()
@@ -154,39 +132,6 @@ catalogRouter
       .catch(next)
   })
 
-
-// upload profile image for user
-catalogRouter
-.route('/images')
-// .all(requireAuth)
-.get((req, res, next) => {
-  const knexInstance = req.app.get('db')
-  CatalogService.getAllImages(knexInstance)
-    .then(catalog => {
-      res.json(catalog.map(serializeCatalogImage))
-    })
-    .catch(next)
-})
-
-.post(bodyParser, upload.single('catalogImage'), (req, res, next) => {
-
-  console.log(req.body, "FILE PATH?")
-  CatalogService.insertImage(
-    req.app.get('db'),
-    // req.user.user_name,
-    req.file.path,
-  )
-  .then( res => {
-    res.status(204).send('Image uploaded successfully');
-  })
-  .catch(err => {
-    return res.status(500).json({
-      error: `Something went wrong`
-    })
-  })
-  .catch(next)
-})
-// Add user details
 
 
 module.exports = catalogRouter
