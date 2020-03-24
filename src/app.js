@@ -12,7 +12,6 @@ const catalogRouter = require('./catalog/catalog-router')
 const eventsRouter = require('./events/events-router')
 const catalogEventsRouter = require('./catalog_events/catalog-events-router')
 const catalogContactsRouter = require('./catalog_contacts/catalog-contacts-router')
-const catalogImagesRouter = require ('./catalog_images/catalog-images-router')
 const contactsEventsRouter = require('./contacts-events/contacts-events-router')
 const authRouter = require('./auth/auth-router')
 const usersRouter = require('./Users/users-router')
@@ -21,12 +20,24 @@ const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
   : 'common';
 
+const path = require('path');
 
 app.use(cors())
 
 app.use(morgan(morganOption))
-app.use(express.static('uploads'))
+app.use(express.static(path.join(__dirname + '../../..' + '/public/uploads/')))
 app.use(helmet())
+
+// const publicOptions = {
+//   origin: function(origin, cb){
+//     callback(null, true)
+//   },
+//   methods: "GET, POST"
+// }
+
+// app.options('*', publicOptions, cb){}
+// app.options(publicOptions, cb)
+// app.use('/public', cors(publicOptions, cb))
 
 app.use('/api', contactsRouter)
 app.use('/api', catalogRouter)

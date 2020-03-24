@@ -31,10 +31,7 @@ const serializeCatalogItem = catalog => ({
 
 })
 
-const serializeCatalogImage = catalog => ({
-  "image_name": catalog.image_name,
-  "catalog_id": catalog.catalog_id
-})
+
 
 catalogRouter
   .route('/catalog')
@@ -49,8 +46,10 @@ catalogRouter
   })
 
   .post(bodyParser, (req, res, next) => {
-    const { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, images, subject, quantity, location, sold_date, sold_to, history } = req.body;
+    console.log("REQ.BODY in CATALOG ROUTER", req.body, "END OF -- REQ.BODY in CATALOG ROUTER")
+    const { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, images, subject, quantity, location, sold_date, sold_to, history } = req.body
     const newCatalogItem = { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, images, subject, quantity, location, sold_date, sold_to, history }
+    console.log("NEW CATALOG", newCatalogItem, )
     if (!name) {
       return res
         .status(400)

@@ -4,14 +4,16 @@ const CatalogImagesService = {
         return knex.select('*').from('studiokeeper_images')
         .where(req)
     },
-    insertImage(db){
+
+    insertImage(db, newCatalogImageItem){
         return db('studiokeeper_images')
-            //   .where({ user_name })
-            //   .update({ image_name, catalog_id})
-            //   .returning('*')
-            //   .then(([user]) => user)
-          },
-    
+        .insert(newCatalogImageItem)
+        .into('studiokeeper_images')
+        .returning('*')
+        .then(rows => {
+            return rows[0]
+        })
+},
 
 }
 
