@@ -20,10 +20,6 @@ const storage = multer.diskStorage({
     cb(null, date + file.originalname); }
 });
 
-const upload = multer({ 
-  storage: storage
-})
-
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
     cb(null, true);
@@ -35,11 +31,15 @@ const fileFilter = (req, file, cb) => {
   }
 }
 
+const upload = multer({ 
+  storage: storage,
+  limits: {
+      fileSize: 1024 * 1024 * 5,
+      fileFilter: fileFilter
+    } 
+  });
 
-//   storage: storage, limits: {
-//   fileSize: 1024 * 1024 * 5,
-//   fileFilter: fileFilter
-// } }).single('images');
+
 
 
 // const serializeCatalogImageItem = item => ({
@@ -62,30 +62,30 @@ catalogImagesRouter
    
    .post(upload.single('image'), (req, res, next) => {
      console.log("REQESTED FILE", req.file)
-    //  console.log("requested body", req.body)
-    //   const catalogImageItem ={
-    //     user_id: req.body.user_id,
-    //     image_name: req.file.originalname,
-    //     catalog_id: req.body.catalog_id
-    //   }
-  
-    // if (!req.body.image_name || !req.body.catalog_id) {
-    //       return res
-    //         .status(400)
-    //         .json({
-    //           error: { message: 'An image name and catalog item are required' }
-    //         })
-    //     }
 
-    // CatalogImagesService.insertImage(
-    //     req.app.get('db'),
-    //     catalogImageItem
-    //   )
-    //   .then(item => {
-    //     res
-    //       .status(201)
-    //       .json(serializeCatalogImageItem(item))
-    //   })
+      const catalogImageItem ={
+        user_id: req.body.user_id,
+        image_name: req.file.originalname,
+        catalog_id: req.body.catalog_id
+      }
+  
+    if (!req.body.image_name || !req.body.catalog_id) {
+          return res
+            .status(400)
+            .json({
+              error: { message: 'An image name and catalog item are required' }
+            })
+        }
+
+    CatalogImagesService.insertImage(
+        req.app.get('db'),
+        catalogImageItem
+      )
+      .then(item => {
+        res
+          .status(201)
+          .json(serializeCatalogImageItem(item))
+      })
       .catch(next)
     })  
 
