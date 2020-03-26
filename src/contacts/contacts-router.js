@@ -55,7 +55,6 @@ contactsRouter
         newContact
       )
       .then(item => {
-        console.log(item, 'THIS IS ITEM')
         res
         .status(201)
         .location(`api/contact/${item.id}`)
@@ -100,8 +99,6 @@ contactsRouter
     })
 
   .patch(jsonParser, (req, res, next) => {
-    console.log(req, "ReQ")
-
     const { user_id, contact_type, business_name, name, title, events, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, favorites, notes } = req.body;
     const contactToUpdate = { user_id, contact_type, business_name, name, title, events, email, phone, address_street, address_line2, address_city, address_state, address_zip, address_country, website, favorites, notes }
 

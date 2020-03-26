@@ -5,7 +5,6 @@ const CatalogService = {
     },
 
     insertCatalogEntry(knex, newCatalogEntry){
-        console.log("GOT TO INSERT")
         return knex
             .insert(newCatalogEntry)
             .into('studiokeeper_catalog')

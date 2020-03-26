@@ -1,11 +1,12 @@
 const CatalogImagesService = {
 
-    getCatalogImages(knex, req){
+    getAllImages(knex, req){
         return knex.select('*').from('studiokeeper_images')
         .where(req)
     },
 
     insertImage(db, newCatalogImageItem){
+       
         return db('studiokeeper_images')
         .insert(newCatalogImageItem)
         .into('studiokeeper_images')

@@ -26,7 +26,6 @@ const ContactsService = {
     },
 
     updateContactItem(knex, id, newContactFields){
-        console.log("contactitem", newContactFields)
         return knex('studiokeeper_contacts')
         .where({ id })
         .update(newContactFields)

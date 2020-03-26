@@ -15,7 +15,6 @@ contactsEventsRouter
   .route('/contactsevents')
    .get((req, res, next) => {
     const knexInstance = req.app.get('db')
-    console.log(req.query)
 
     ContactsEventsService.getContactsAndEvents(knexInstance, req.query)
     .then(response => {

@@ -1,6 +1,6 @@
 const express = require('express')
 const CatalogImagesService = require('./catalog-images-service')
-const catalogImageRouter = express.Router()
+const catalogImagesRouter = express.Router()
 const bodyParser = express.json()
 const { requireAuth } = require('../middleware/jwt-auth')
 jsonParser = express.json()
@@ -48,12 +48,12 @@ const fileFilter = (req, file, cb) => {
 // })
 
 
-catalogImageRouter
+catalogImagesRouter
    .route('/images')
    // .all(requireAuth)
    .get((req, res, next) => {
      const knexInstance = req.app.get('db')
-     CatalogService.getAllImages(knexInstance)
+     CatalogImagesService.getAllImages(knexInstance, req)
        .then(catalog => {
          res.json(catalog.map(serializeCatalogImage))
        })
@@ -61,37 +61,37 @@ catalogImageRouter
    })
    
    .post(upload.single('image'), (req, res, next) => {
-     console.log("this is req.body", req.body)
+     console.log("REQESTED FILE", req.file)
+    //  console.log("requested body", req.body)
+    //   const catalogImageItem ={
+    //     user_id: req.body.user_id,
+    //     image_name: req.file.originalname,
+    //     catalog_id: req.body.catalog_id
+    //   }
+  
+    // if (!req.body.image_name || !req.body.catalog_id) {
+    //       return res
+    //         .status(400)
+    //         .json({
+    //           error: { message: 'An image name and catalog item are required' }
+    //         })
+    //     }
 
-        const { user_id, image_name, catalog_id } = req.body
-        const newCatalogImageItem = { user_id, image_name, catalog_id}
-   
-    if (!image_name || !catalog_id) {
-          return res
-            .status(400)
-            .json({
-              error: { message: 'An image name and catalog item are required' }
-            })
-        }
-
-      newCatalogImageItem.user_id = 1
-      //change user_id to the logged in user ID
-
-    CatalogImagesService.insertImage(
-        req.app.get('db'),
-        newCatalogImageItem
-      )
-      .then(item => {
-        res
-          .status(201)
-          .json(serializeCatalogImageItem(item))
-      })
+    // CatalogImagesService.insertImage(
+    //     req.app.get('db'),
+    //     catalogImageItem
+    //   )
+    //   .then(item => {
+    //     res
+    //       .status(201)
+    //       .json(serializeCatalogImageItem(item))
+    //   })
       .catch(next)
     })  
 
 
 
-module.exports = catalogImageRouter
+module.exports = catalogImagesRouter
 
 
 

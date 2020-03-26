@@ -46,10 +46,9 @@ catalogRouter
   })
 
   .post(bodyParser, (req, res, next) => {
-    console.log("REQ.BODY in CATALOG ROUTER", req.body, "END OF -- REQ.BODY in CATALOG ROUTER")
-    const { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, images, subject, quantity, location, sold_date, sold_to, history } = req.body
-    const newCatalogItem = { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, images, subject, quantity, location, sold_date, sold_to, history }
-    console.log("NEW CATALOG", newCatalogItem, )
+    const { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, subject, quantity, location, sold_date, sold_to, history } = req.body.catalogItem;
+    const newCatalogItem = { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, subject, quantity, location, sold_date, sold_to, history }
+     
     if (!name) {
       return res
         .status(400)
@@ -58,8 +57,8 @@ catalogRouter
         })
     }
 
-    newCatalogItem.user_id = 1
-    //change user_id value to logged in user_id
+    // newCatalogItem.user_id = 1
+    // //change user_id value to logged in user_id
     CatalogService.insertCatalogEntry(
       req.app.get('db'),
       newCatalogItem
@@ -110,8 +109,8 @@ catalogRouter
   })
 
   .patch(jsonParser, (req, res, next) => {
-    const { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, images, subject, quantity, location, sold_date, sold_to, history } = req.body;
-    const itemToUpdate = { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, images, subject, quantity, location, sold_date, sold_to, history };
+    const { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, subject, quantity, location, sold_date, sold_to, history } = req.body;
+    const itemToUpdate = { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, subject, quantity, location, sold_date, sold_to, history };
 
     const numberOfValues = Object.values(itemToUpdate).filter(Boolean).length
     if (numberOfValues === 0){

@@ -28,17 +28,6 @@ app.use(morgan(morganOption))
 app.use(express.static(path.join(__dirname + '../../..' + '/public/uploads/')))
 app.use(helmet())
 
-// const publicOptions = {
-//   origin: function(origin, cb){
-//     callback(null, true)
-//   },
-//   methods: "GET, POST"
-// }
-
-// app.options('*', publicOptions, cb){}
-// app.options(publicOptions, cb)
-// app.use('/public', cors(publicOptions, cb))
-
 app.use('/api', contactsRouter)
 app.use('/api', catalogRouter)
 app.use('/api', eventsRouter)
@@ -48,7 +37,7 @@ app.use('/api', catalogImagesRouter)
 app.use('/api', contactsEventsRouter)
 app.use('/api/auth', authRouter)
 app.use('/api', usersRouter)
-app.use('/uploads', express.static('uploads'));
+
 
 
 

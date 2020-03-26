@@ -5,7 +5,6 @@ const EventsService = {
     },
 
     insertEvent(knex, newEventItem){
-        console.log(newEventItem, "This is in insertEvent, event-service")
         return knex
             .insert(newEventItem)
             .into('studiokeeper_events')

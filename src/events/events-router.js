@@ -45,7 +45,6 @@ eventsRouter
         newEventItem
       )
       .then(item => {
-        console.log(item, "this is item in EVENTS ROUTER")
         res
         .status(201)
         .location(`api/events/${item.id}`)

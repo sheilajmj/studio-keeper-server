@@ -15,7 +15,6 @@ catalogEventsRouter
   .route('/catalogevents')
    .get((req, res, next) => {
     const knexInstance = req.app.get('db')
-    console.log(req.query)
 
     CatalogEventsService.getCatalogAndEvents(knexInstance, req.query)
     .then(response => {
