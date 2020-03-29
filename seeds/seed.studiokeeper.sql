@@ -55,10 +55,10 @@ VALUES
 ('3', '1'),
 ('2', '1' );
 
-INSERT INTO studiokeeper_images (user_id, image_name, catalog_id)   
+INSERT INTO studiokeeper_images (user_id, image_name, catalog_id, image_url)   
 VALUES
-('1', 'image1.jpg', '1'),
-('1', 'image2.jpg', '2'),
-('1', 'image3.jpg', '3');
+('1', 'image1.jpg', '1', 'C:\Users\Sheila\Dropbox\Computer Science Study\Bloc BootCamp Work\projects\studio-keeper-server\public\uploads\2020-03-24T02-59-04.487Zrachael-gorjestani-X6CZGpJBi8U-unsplash.jpg'),
+('1', 'image2.jpg', '2', 'C:\Users\Sheila\Dropbox\Computer Science Study\Bloc BootCamp Work\projects\studio-keeper-server\public\uploads\2020-03-25T19-55-36.418Zvladimir-proskurovskiy-ZlPeHjYoAdU-unsplash.jpg'),
+('1', 'image3.jpg', '3', 'C:\Users\Sheila\Dropbox\Computer Science Study\Bloc BootCamp Work\projects\studio-keeper-server\public\uploads\2020-03-26T04-32-27.210Zandrew-ruiz-YXSJ33Pbg7g-unsplash.jpg');
 
 COMMIT;

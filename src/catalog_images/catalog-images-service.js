@@ -5,10 +5,10 @@ const CatalogImagesService = {
         .where(req)
     },
 
-    insertImage(db, newCatalogImageItem){
+    insertCatalogImageData(db, newCatalogImageData){
        
         return db('studiokeeper_images')
-        .insert(newCatalogImageItem)
+        .insert(newCatalogImageData)
         .into('studiokeeper_images')
         .returning('*')
         .then(rows => {

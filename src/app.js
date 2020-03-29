@@ -12,9 +12,10 @@ const catalogRouter = require('./catalog/catalog-router')
 const eventsRouter = require('./events/events-router')
 const catalogEventsRouter = require('./catalog_events/catalog-events-router')
 const catalogContactsRouter = require('./catalog_contacts/catalog-contacts-router')
-const contactsEventsRouter = require('./contacts-events/contacts-events-router')
+const contactsEventsRouter = require('./contacts_events/contacts-events-router')
 const authRouter = require('./auth/auth-router')
 const usersRouter = require('./Users/users-router')
+const catalogImageDataRouter = require('./catalog_images/catalog-images-router')
 const catalogImagesRouter = require('./catalog_images/catalog-images-router')
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
@@ -37,6 +38,7 @@ app.use('/api', catalogImagesRouter)
 app.use('/api', contactsEventsRouter)
 app.use('/api/auth', authRouter)
 app.use('/api', usersRouter)
+app.use('/api', catalogImageDataRouter)
 
 
 
