@@ -14,7 +14,6 @@ const serializeContactsEventsItem = item => ({
 contactsEventsRouter
   .route('/contactsevents')
   .get((req, res, next) => {
-    console.log("MADE IT!")
     const knexInstance = req.app.get('db')
 
     ContactsEventsService.getContactsAndEvents(knexInstance, req.query)
