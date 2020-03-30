@@ -20,11 +20,9 @@ const serializeCatalogItem = catalog => ({
   "date_created": catalog.date_created,
   "concept_statement": catalog.concept_statement,
   "notes": catalog.notes,
-  //"images": catalog.images,
   "subject": catalog.subject,
   "quantity": catalog.quantity,
   "location": catalog.location,
-  // "favorited_by": catalog.favorited_by,
   "sold_date": catalog.sold_date,
   "sold_to": catalog.sold_to,
   "history": catalog.history

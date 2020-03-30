@@ -1,8 +1,7 @@
 const express = require('express')
 const CatalogImagesService = require('./catalog-images-service')
 const router = express.Router()
-const bodyParser = express.json()
-const { requireAuth } = require('../middleware/jwt-auth')
+// const { requireAuth } = require('../middleware/jwt-auth')
 jsonParser = express.json()
 const multer = require('multer')
 const serializeCatalogImage = catalog => ({

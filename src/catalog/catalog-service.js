@@ -30,11 +30,6 @@ const CatalogService = {
         .update(newCatalogItemFields)
     },
 
-    // getAllImages(knex){
-    //     return knex.select('*').from('studiokeeper_images')
-    // },
-
-
 }
 
 module.exports = CatalogService
