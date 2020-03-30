@@ -8,11 +8,15 @@
     "dev": "nodemon src/server.js",
     "migrate": "postgrator --config postgrator-config.js",
     "migrate:test": "env NODE_ENV=test npm run migrate",
+    "migrate:production": "set SSL=true DATABASE_URL=$(heroku config:get DATABASE_URL) npm run migrate",
     "start": "node src/server.js",
     "predeploy": "npm audit",
     "deploy": "git push heroku master"
   },
   "keywords": [],
+  "engines": {
+    "node": "12.16.1"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -26,6 +30,7 @@
     "md5": "^2.2.1",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
+    "now": "^17.1.1",
     "pg": "^7.18.2",
     "postgrator": "^3.11.0",
     "postgrator-cli": "^3.3.0",
