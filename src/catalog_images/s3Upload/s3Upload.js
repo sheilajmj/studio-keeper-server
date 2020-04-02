@@ -1,51 +1,50 @@
 const express = require('express');
-const router = express.Router();
-const multer  = require('multer');
-const AWS = require('aws-sdk');
+const aws = require('aws-sdk');
+const bodyParser = require('body-parser');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
 const config = require('../../config')
-const storage = multer.memoryStorage({
-    destination: function(req, file, callback) {
-        callback(null, '');
-    }
+
+aws.config.update({
+    secretAccessKey:   config.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: config.AWS_ACCESS_KEY_ID,
+    region: 'us-west-1'
 });
-// var multipleUpload = multer({ storage: storage }).array('file');
-const upload = multer({ storage: storage }).single('file');
-const BUCKET_NAME = config.S3_BUCKET_NAME;
-const IAM_USER_KEY = config.AWS_ACCESS_KEY_ID;
-const IAM_USER_SECRET = config.AWS_SECRET_ACCESS_KEY;
+
+const s3 = new aws.S3();
+app.use(bodyParser.json());
+const upload = multer({
+    storage: multerS3({
+        s3: s3,
+        acl: 'public-read',
+        bucket: config.S3_BUCKET_NAME,
+        key: function (req, file, cb) {
+            const now = new Date().toISOString();
+            const date = now.replace(/:/g, '-');
+            console.log(file);
+            cb(null, date + file.originalname); 
+        }
+    })
+})
 
 router
-    .route('/images')
-    .post(upload.single('image'), function (req, res) {
-    const file = req.files;
-    let s3bucket = new AWS.S3({
-        accessKeyId: IAM_USER_KEY,
-        secretAccessKey: IAM_USER_SECRET,
-        Bucket: BUCKET_NAME
-    });
-s3bucket.createBucket(function () {
-      let Bucket_Path = 'arn:aws:s3:us-west-1:139348107800:accesspoint/images';
-      //Where you want to store your file
-      var ResponseData = [];
-   
-file.map((item) => {
-      var params = {
-        Bucket: Bucket_Path,
-        Key: item.originalname,
-        Body: item.buffer,
-        ACL: 'public-read'
-  };
-s3bucket.upload(params, function (err, data) {
-        if (err) {
-         res.json({ "error": true, "Message": err});
-        }else{
-            ResponseData.push(data);
-            if(ResponseData.length == file.length){
-              res.json({ "error": false, "Message": "File Uploaded    SuceesFully", Data: ResponseData});
-            }
-          }
-       });
-     });
-   });
-});
-module.exports = router;
+.route('/image-upload')
+.post(upload.single('image'), (req, res, next) => {
+    const newCatalogImageData = { 
+      user_id: 1,
+      image_name: req.file.filename,
+      catalog_id: req.body.catalog_id,
+      image_url: req.file.path
+    }
+
+    CatalogImagesService.insertCatalogImageData(
+          req.app.get('db'),
+          newCatalogImageData
+        )
+        .then(item => {
+          res
+            .status(201)
+            .json(serializeCatalogImage(item))
+        })
+        .catch(next)
+      })        
