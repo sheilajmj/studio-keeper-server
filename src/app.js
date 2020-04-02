@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/api', s3FileUpload)
 
-app.set('views', './views');
+// app.set('views', './views');
 
 app.use(morgan(morganOption))
 app.use(express.static(path.join(__dirname + '../../..' + '/public/uploads/')))
