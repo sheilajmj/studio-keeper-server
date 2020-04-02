@@ -14,18 +14,6 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-      cb(null, true);
-    } else {
-      res.json({
-        error: `Wrong file type submitted. Upload only .png or .jpeg`
-      })
-      cb(null, false);
-    }
-  }
-  
-
 const upload = multer({
     storage: multerS3({
         s3: s3,
@@ -38,12 +26,7 @@ const upload = multer({
         },
         key: function(req, file, cb){
             cb(null, Date.now().toString())
-        },
-        limits: {
-            fileSize: 1024 * 1024 * 5,
-            fileFilter: fileFilter
-          } 
-    
+        }
     })
 })
 
