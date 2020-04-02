@@ -27,12 +27,12 @@ describe.only('Auth Endpoints', function () {
         beforeEach('insert users', () =>
             helpers.seedUsers(
                 db,
-                testUsers,
+                testUser,
             )
         )
 
         const requiredFields = ['user_name', 'password']
-
+                console.log(testUser, "THIS IS A TEST USER")
         requiredFields.forEach(field => {
             const loginAttemptBody = {
                 user_name: testUser.user_name,
