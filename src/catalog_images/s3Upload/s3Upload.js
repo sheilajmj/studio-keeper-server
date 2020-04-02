@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 const config = require('../../config')
+const router = express.Router()
 
 aws.config.update({
     secretAccessKey:   config.AWS_SECRET_ACCESS_KEY,
@@ -16,13 +17,15 @@ app.use(bodyParser.json());
 const upload = multer({
     storage: multerS3({
         s3: s3,
-        acl: 'public-read',
         bucket: config.S3_BUCKET_NAME,
-        key: function (req, file, cb) {
+        metadata: function (req, file, cb) {
             const now = new Date().toISOString();
             const date = now.replace(/:/g, '-');
             console.log(file);
             cb(null, date + file.originalname); 
+        },
+        key: function(req, file, cb){
+            cb(null, Date.now().toString())
         }
     })
 })
@@ -30,21 +33,6 @@ const upload = multer({
 router
 .route('/image-upload')
 .post(upload.single('image'), (req, res, next) => {
-    const newCatalogImageData = { 
-      user_id: 1,
-      image_name: req.file.filename,
-      catalog_id: req.body.catalog_id,
-      image_url: req.file.path
-    }
-
-    CatalogImagesService.insertCatalogImageData(
-          req.app.get('db'),
-          newCatalogImageData
-        )
-        .then(item => {
-          res
-            .status(201)
-            .json(serializeCatalogImage(item))
-        })
-        .catch(next)
-      })        
+    res.send('Successfully uploaded' + req.file)
+})
+    
