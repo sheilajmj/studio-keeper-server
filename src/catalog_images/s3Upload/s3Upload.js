@@ -13,7 +13,7 @@ aws.config.update({
 });
 
 const s3 = new aws.S3();
-app.use(bodyParser.json());
+
 const upload = multer({
     storage: multerS3({
         s3: s3,
@@ -35,4 +35,6 @@ router
 .post(upload.single('image'), (req, res, next) => {
     res.send('Successfully uploaded' + req.file)
 })
-    
+
+
+module.exports = router

@@ -15,6 +15,7 @@ const catalogContactsRouter = require('./catalog_contacts/catalog-contacts-route
 const contactsEventsRouter = require('./contacts_events/contacts-events-router')
 const authRouter = require('./auth/auth-router')
 const usersRouter = require('./Users/users-router')
+const s3Router = require('./catalog_images/s3Upload/s3Upload')
 const catalogImageDataRouter = require('./catalog_images/catalog-images-router')
 const catalogImagesRouter = require('./catalog_images/catalog-images-router')
 const morganOption = (NODE_ENV === 'production')
@@ -39,6 +40,7 @@ app.use('/api', contactsEventsRouter)
 app.use('/api/auth', authRouter)
 app.use('/api', usersRouter)
 app.use('/api', catalogImageDataRouter)
+app.use('/api', s3Router)
 
 
 
