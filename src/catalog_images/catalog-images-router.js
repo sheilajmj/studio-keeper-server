@@ -12,7 +12,8 @@ const serializeCatalogImage = catalog => ({
 const path = require('path');
 
 const storage = multer.diskStorage({
-  destination: function(req, res, cb) { cb(null, __dirname + '../../..' + '/public/uploads/'); },
+  destination: function(req, res, cb) { cb(null, ''); },
+  // __dirname + '../../..' + '/public/uploads/'
   
   filename: function(req, file, cb){
     const now = new Date().toISOString();
