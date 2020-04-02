@@ -2,10 +2,9 @@ require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
-const aws = require('aws-sdk');
-const s3FileUpload = require('./catalog_images/s3Upload/s3Upload');
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
+const { CLIENT_ORIGIN } = require('./config');
 const app = express()
 app.use(express.json());
 const contactsRouter = require('./contacts/contacts-router')
@@ -24,11 +23,7 @@ const morganOption = (NODE_ENV === 'production')
 
 const path = require('path');
 
-app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
-app.use('/api', s3FileUpload)
-
-app.set('views', './views');
 
 app.use(morgan(morganOption))
 app.use(express.static(path.join(__dirname + '../../..' + '/public/uploads/')))
@@ -44,6 +39,8 @@ app.use('/api', contactsEventsRouter)
 app.use('/api/auth', authRouter)
 app.use('/api', usersRouter)
 app.use('/api', catalogImageDataRouter)
+
+
 
 
 app.use(function errorHandler(error, req, res, next) {
