@@ -22,15 +22,13 @@ const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
   : 'common';
 
-app.use(cors())
-
 const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: true }))
-
+app.use(cors())
 app.use('/api', s3FileUpload)
 
-// app.set('views', './views');
+app.set('views', './views');
 
 app.use(morgan(morganOption))
 app.use(express.static(path.join(__dirname + '../../..' + '/public/uploads/')))
