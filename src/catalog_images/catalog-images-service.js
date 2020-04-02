@@ -6,7 +6,7 @@ const CatalogImagesService = {
     },
 
     insertCatalogImageData(db, newCatalogImageData){
-       
+       console.log("GOT HERE!")
         return db('studiokeeper_images')
         .insert(newCatalogImageData)
         .into('studiokeeper_images')

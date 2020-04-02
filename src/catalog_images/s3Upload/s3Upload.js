@@ -1,10 +1,17 @@
 const express = require('express');
 const aws = require('aws-sdk');
 const bodyParser = require('body-parser');
+const CatalogImagesService = require('../catalog-images-service')
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 const config = require('../../config')
 const router = express.Router()
+const serializeCatalogImage = catalog => ({
+    "image_name": catalog.image_name,
+    "catalog_id": catalog.catalog_id,
+    "image_url": catalog.image_url
+  })
+
 
 aws.config.update({
     secretAccessKey:   config.AWS_SECRET_ACCESS_KEY,
@@ -46,9 +53,29 @@ const upload = multer({
 router
 .route('/image-upload')
 .post(upload.single('image'), (req, res, next) => {
-    console.log("REQUEST", req.file, "END OF REQUEST")
-    res.send('Successfully uploaded' + req.file)
-})
+    const newCatalogImageData = { 
+        user_id: 1,
+        image_name: req.file.key,
+        catalog_id: req.body.catalog_id,
+        image_url: req.file.location
+      }
+      console.log("NEW CATALOg IMAGE DATA", newCatalogImageData)
+ 
+      CatalogImagesService.insertCatalogImageData(
+            req.app.get('db'),
+            newCatalogImageData
+          )
+          .then(item => {
+            res
+              .status(201)
+              .json(serializeCatalogImage(item))
+          })
+          .catch(next)
+})        
+   
+
+
+
 
 
 module.exports = router;
