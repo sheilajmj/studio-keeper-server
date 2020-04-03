@@ -44,11 +44,9 @@ catalogRouter
   })
 
   .post(bodyParser, (req, res, next) => {
-    const user_id = 1 
-    const {type, collection, name, size, medium, price, date_created, concept_statement, notes, subject, quantity, location, sold_date, sold_to, history } = req.body;
-    const newCatalogItem = {user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, subject, quantity, location, sold_date, sold_to, history }
-    
-
+    const { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, subject, quantity, location, sold_date, sold_to, history } = req.body.catalogItem;
+    const newCatalogItem = { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, subject, quantity, location, sold_date, sold_to, history }
+     
     if (!name) {
       return res
         .status(400)
@@ -57,8 +55,8 @@ catalogRouter
         })
     }
 
-    // newCatalogItem.user_id = 1
-    // //change user_id value to logged in user_id
+    newCatalogItem.user_id = 1
+    //change user_id value to logged in user_id
     CatalogService.insertCatalogEntry(
       req.app.get('db'),
       newCatalogItem
