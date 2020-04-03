@@ -19,6 +19,7 @@ const CatalogService = {
     },
 
     deleteCatalogItem(knex, id) {
+        console.log("Got to end")
         return knex('studiokeeper_catalog')
         .where({ id })
         .delete()
