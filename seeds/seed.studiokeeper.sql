@@ -57,8 +57,8 @@ VALUES
 
 INSERT INTO studiokeeper_images (user_id, image_name, catalog_id, image_url)   
 VALUES
-('1', 'image1.jpg', '1', 'C:\Users\Sheila\Dropbox\Computer Science Study\Bloc BootCamp Work\projects\studio-keeper-server\public\uploads\2020-03-24T02-59-04.487Zrachael-gorjestani-X6CZGpJBi8U-unsplash.jpg'),
-('1', 'image2.jpg', '2', 'C:\Users\Sheila\Dropbox\Computer Science Study\Bloc BootCamp Work\projects\studio-keeper-server\public\uploads\2020-03-25T19-55-36.418Zvladimir-proskurovskiy-ZlPeHjYoAdU-unsplash.jpg'),
-('1', 'image3.jpg', '3', 'C:\Users\Sheila\Dropbox\Computer Science Study\Bloc BootCamp Work\projects\studio-keeper-server\public\uploads\2020-03-26T04-32-27.210Zandrew-ruiz-YXSJ33Pbg7g-unsplash.jpg');
+('1', 'Image1_min.jpg', '1', 'https://studiokeeper.s3-us-west-1.amazonaws.com/Image1_min.jpg'),
+('1', 'image2.jpg', '2', 'https://studiokeeper.s3-us-west-1.amazonaws.com/image2.jpg'),
+('1', 'image3.jpg', '3', 'https://studiokeeper.s3-us-west-1.amazonaws.com/image3.jpg');
 
 COMMIT;

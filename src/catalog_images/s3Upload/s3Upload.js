@@ -58,9 +58,7 @@ router
         image_name: req.file.key,
         catalog_id: req.body.catalog_id,
         image_url: req.file.location
-      }
-      console.log("NEW CATALOg IMAGE DATA", newCatalogImageData)
- 
+      } 
       CatalogImagesService.insertCatalogImageData(
             req.app.get('db'),
             newCatalogImageData
