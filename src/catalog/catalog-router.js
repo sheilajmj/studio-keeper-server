@@ -44,9 +44,10 @@ catalogRouter
   })
 
   .post(bodyParser, (req, res, next) => {
-    const { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, subject, quantity, location, sold_date, sold_to, history } = req.body;
-    const newCatalogItem = { user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, subject, quantity, location, sold_date, sold_to, history }
-    newCatalogItem.user_id = 1 
+    const user_id = 1 
+    const {type, collection, name, size, medium, price, date_created, concept_statement, notes, subject, quantity, location, sold_date, sold_to, history } = req.body;
+    const newCatalogItem = {user_id, type, collection, name, size, medium, price, date_created, concept_statement, notes, subject, quantity, location, sold_date, sold_to, history }
+    
 
     if (!name) {
       return res
