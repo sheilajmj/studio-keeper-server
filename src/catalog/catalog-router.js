@@ -96,7 +96,6 @@ catalogRouter
   })
 
   .delete((req, res, next) => {
-    console.log("got here")
     CatalogService.deleteCatalogItem(
       req.app.get('db'),
       req.params.id
