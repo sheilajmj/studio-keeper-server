@@ -1,0 +1,1 @@
+ALTER TABLE public.studiokeeper_images drop catalog_id;
