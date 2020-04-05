@@ -175,7 +175,6 @@ function seedUsers(db, users){
             }))
             return db.into('studiokeeper_users').insert(preppedUsers)
             .then(() =>
-                // update the auto sequence to stay in sync
                 db.raw(
                 `SELECT setval('studiokeeper_users_id_seq', ?)`,
                 [users[users.length - 1].id],

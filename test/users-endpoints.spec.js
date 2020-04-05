@@ -33,6 +33,4 @@ describe('Catalog Endpoints', function () {
             })
         })
     })
-
-//closing
 })

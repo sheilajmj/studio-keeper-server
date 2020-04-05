@@ -32,7 +32,6 @@ describe('Auth Endpoints', function () {
         )
 
         const requiredFields = ['user_name', 'password']
-                console.log(testUser, "THIS IS A TEST USER")
         requiredFields.forEach(field => {
             const loginAttemptBody = {
                 user_name: testUser.user_name,
@@ -66,24 +65,24 @@ describe('Auth Endpoints', function () {
         })
 
         it(`responds 200 and JWT auth token using secret when valid credentials`, () => {
-                 const userValidCreds = {
-                   user_name: testUser.user_name,
-                   password: testUser.password,
-                 }
-                 const expectedToken = jwt.sign(
-                   { user_id: testUser.id }, // payload
-                   process.env.JWT_SECRET,
-                   {
-                     subject: testUser.user_name,
-                     algorithm: 'HS256',
-                   }
-                 )
-                 return supertest(app)
-                   .post('/api/auth/login')
-                   .send(userValidCreds)
-                   .expect(200, {
-                     authToken: expectedToken,
-                   })
-               })
+            const userValidCreds = {
+                user_name: testUser.user_name,
+                password: testUser.password,
+            }
+            const expectedToken = jwt.sign(
+                { user_id: testUser.id },
+                process.env.JWT_SECRET,
+                {
+                    subject: testUser.user_name,
+                    algorithm: 'HS256',
+                }
+            )
+            return supertest(app)
+                .post('/api/auth/login')
+                .send(userValidCreds)
+                .expect(200, {
+                    authToken: expectedToken,
+                })
+        })
     })
 })

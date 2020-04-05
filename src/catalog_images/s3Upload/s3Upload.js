@@ -39,7 +39,6 @@ const upload = multer({
         key: function (req, file, cb) {
             const now = new Date().toISOString();
             const date = now.replace(/:/g, '-');
-            console.log(file);
             cb(null, date + file.originalname); 
         }
     }),

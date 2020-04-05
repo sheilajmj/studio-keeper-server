@@ -33,7 +33,6 @@ const serializeCatalogItem = catalog => ({
 
 catalogRouter
   .route('/catalog')
-  // .all(requireAuth)
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
     CatalogService.getAllCatalogEntries(knexInstance)
@@ -56,7 +55,6 @@ catalogRouter
     }
 
     newCatalogItem.user_id = 1
-    //change user_id value to logged in user_id
     CatalogService.insertCatalogEntry(
       req.app.get('db'),
       newCatalogItem
@@ -73,7 +71,6 @@ catalogRouter
 
 catalogRouter
   .route('/catalog/:id')
-  //.all(requireAuth)
   .all((req, res, next) => {
     CatalogService.getById(
       req.app.get('db'),

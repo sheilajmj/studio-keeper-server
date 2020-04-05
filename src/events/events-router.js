@@ -17,7 +17,6 @@ const serializeEventItem = event => ({
 
 eventsRouter
   .route('/events')
-  //.all(requireAuth)
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
     EventsService.getAllEvents(knexInstance)
@@ -39,7 +38,6 @@ eventsRouter
       }
   
       newEventItem.user_id = 1
-      //change to logged in user
       EventsService.insertEvent(
         req.app.get('db'),
         newEventItem
@@ -56,7 +54,6 @@ eventsRouter
 
 eventsRouter
   .route('/events/:id')
- // .all(requireAuth)
     .all((req, res, next) => {
       EventsService.getById(
       req.app.get('db'),

@@ -48,7 +48,6 @@ contactsRouter
       }
 
       newContact.user_id = req.body.user_id
-      //change user_id to the value of logged in user_id
       ContactsService.insertContact(
         req.app.get('db'),
         newContact
@@ -65,7 +64,6 @@ contactsRouter
   
 contactsRouter
   .route('/contacts/:id')
-  // .all(requireAuth)
   .all((req, res, next) => {
     ContactsService.getById(
       req.app.get('db'),

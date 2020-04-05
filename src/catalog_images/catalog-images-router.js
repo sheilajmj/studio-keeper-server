@@ -1,7 +1,6 @@
 const express = require('express')
 const CatalogImagesService = require('./catalog-images-service')
 const router = express.Router()
-// const { requireAuth } = require('../middleware/jwt-auth')
 jsonParser = express.json()
 const multer = require('multer')
 const serializeCatalogImage = catalog => ({
@@ -13,7 +12,6 @@ const path = require('path');
 
 const storage = multer.diskStorage({
   destination: function(req, res, cb) { cb(null, ''); },
-  // __dirname + '../../..' + '/public/uploads/'
   
   filename: function(req, file, cb){
     const now = new Date().toISOString();
@@ -43,7 +41,6 @@ const upload = multer({
 
 router
    .route('/images')
-   // .all(requireAuth)
    .get((req, res, next) => {
      const knexInstance = req.app.get('db')
      CatalogImagesService.getAllImages(knexInstance, req.query)

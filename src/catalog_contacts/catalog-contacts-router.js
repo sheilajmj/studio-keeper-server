@@ -14,7 +14,6 @@ const serializeCatalogContactsItem = item => ({
 
 catalogContactsRouter
   .route('/catalogcontacts')
-  // .all(requireAuth)
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
     CatalogContactsService.getCatalogAndContacts(knexInstance, req.query)
