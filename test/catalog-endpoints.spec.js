@@ -1,16 +1,10 @@
 const { expect } = require('chai')
 const knex = require('knex')
 const app = require('../src/app')
-const helpers = require('./test-helpers')
 
 
 describe('Catalog Endpoints', function () {
     let db
-
-    const {
-        testUsers,
-        testCatalogEntry, 
-    } = helpers.makeCatalogFixtures()
 
     before('make knex instance', () => {
         db = knex({
@@ -20,19 +14,31 @@ describe('Catalog Endpoints', function () {
         app.set('db', db)
     })
 
-    after('disconnect from db', () => db.destroy())
-    before('cleanup', () => helpers.cleanTables(db))
-    afterEach('cleanup', () => helpers.cleanTables(db))
-
-    describe(`GET /api/catalog`, () => {
-        context(`Given no items`, () => {
+    describe(`GET /api/catalog/1`, () => {
+        context(`Given selected item`, () => {
             it(`responds with 200 and an empty list`, () => {
                 return supertest(app)
-                .get('/api/catalog')
-                .expect(200, [])
+                    .get('/api/catalog/1')
+                    .expect(200, {
+                        id: 1,
+                        type: 'Painting',
+                        collection: 'Poured Acrylic',
+                        name: 'The Path',
+                        size: '60"x60"',
+                        medium: 'Acrylic on Canvas',
+                        price: '535.00',
+                        date_created: '2019-03-12T06:00:00.000Z',
+                        concept_statement: 'This is a concept statement for this work',
+                        notes: 'I created this in a bus heading to the moon',
+                        subject: null,
+                        quantity: 4,
+                        location: 'kept in studio',
+                        sold_date: '2020-01-24T07:00:00.000Z',
+                        sold_to: 'event attendee',
+                        history: '1/26/2020 Allstar Show'
+                    })
             })
         })
     })
 
-//closing
 })
