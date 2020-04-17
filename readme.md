@@ -57,19 +57,19 @@ Run the tests `npm test`
 Note the authentication piece is not fully developed.  Any user/password once created will access all data.
 
 
-        [Catalog Related Endpoints](./catalog.md): 
+        [Catalog Related Endpoints](catalog.md): 
             * /api/catalog   GET, POST
             * api/catalog/id  GET, PATCH, DELETE
 
-        [Contacts Related Endpoints](./contacts.md):
+        [Contacts Related Endpoints](contacts.md):
             * /api/contacts     GET, POST
             * /api/contacts/id   GET, PATCH, DELETE
 
-        [Events Related Endpoints](./events.md):
+        [Events Related Endpoints](events.md):
             * /api/events    GET, POST
             * /api/events/id     GET, PATCH, DELETE
 
-        [Catalog Images Related Endpoints](./images.md): 
+        [Catalog Images Related Endpoints](images.md): 
             * /api/catalogimages  GET, POST
 
 
