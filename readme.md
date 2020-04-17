@@ -20,7 +20,7 @@ Complete the following steps to start a new project (NEW-PROJECT-NAME):
 4. Install the node dependencies `npm install`
 5.  Start the server by entering 'npm run' or 'npm run dev' for the development server (nodemon)
 
-### Dependencies
+## Dependencies
 
 Step four, of 'Getting Started' (npm install) will install the following dependencies
 
@@ -44,7 +44,7 @@ Step four, of 'Getting Started' (npm install) will install the following depende
     winston: ^3.2.1,
     xss: ^1.0.6
 
-### Scripts
+## Scripts
 
 Start the application `npm start`
 
@@ -52,26 +52,25 @@ Start nodemon for the application `npm run dev`
 
 Run the tests `npm test`
 
-### Endpoints
+## Authentication Required Endpoints
 
-    This API has the following end points:
+    ** Note the authentication piece is not fully developed.  Any user/password once created will access all data.
 
-        Catalog: /api/catalog   GET, POST
-                 /api/catalog/id     GET, PATCH, DELETE
 
-        Contacts: /api/contacts     GET, POST
-                  /api/contacts/id   GET, PATCH, DELETE
+        [Catalog Related Endpoints](./catalog.md): 
+            * /api/catalog   GET, POST
+            * api/catalog/id  GET, PATCH, DELETE
 
-        Events:  /api/events    GET, POST
-                 /api/events/id     GET, PATCH, DELETE
+        [Contacts Related Endpoints](./contacts.md):
+            * /api/contacts     GET, POST
+            * /api/contacts/id   GET, PATCH, DELETE
 
-        Contacts-Events: /api/contactsevents    GET, POST      
-      
-        Catalog-Events: /api/catalogevents     GET, POST
+        [Events Related Endpoints](./events.md):
+            * /api/events    GET, POST
+            * /api/events/id     GET, PATCH, DELETE
 
-        Catalog-Contacts: /api/catalogcontacts  GET, POST
-
-        Catalog-Images: /api/catalogimages  GET, POST
+        [Catalog Images Related Endpoints](./images.md): 
+            * /api/catalogimages  GET, POST
 
 
 ## Running the tests
@@ -88,4 +87,14 @@ To run the tests use the script "npm tests"
 * [Mocha](https://mochajs.org/) - Test Framework
 * [AWS S3](https://aws.amazon.com/s3/) - Storage Service
 * [Multer](https://www.npmjs.com/package/multer) - Middleware for Handling Multipart/Form-Data 
+
+### Notes:
+
+    * Note the authentication piece is not fully developed.  Any user/password, once created will access all data.
+
+    * Endpoints currently in development include: 
+        ** /api/catalogcontacts
+        ** /api/catalogevents
+        ** /api/contactsevents
+        These endpoints are being built to access junction tables to retrieve the relationships.  
 
