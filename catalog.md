@@ -1,15 +1,15 @@
 # Catalog Related Endpoints
 
 ## View All Catalog Entries
-      URL: /api/catalog
-      Method: GET
-      Authentication required: Yes
+**URL:** /api/catalog
+**Method:** GET
+**Authentication required:** Yes
  
 ### Success Response
-        Code: 200 OK
-        Content:  If catalog entries exist, the user will see all of the entries
-        Generic Content Example
-            {
+**Code:** 200 OK
+**Content:**  If catalog entries exist, the user will see all of the entries
+**Content Example**
+            [{
             "id": [integer]
             "type": [string],
             "collection": [string],
@@ -26,10 +26,11 @@
             "sold_date": [date],
             "sold_to": [string],
             "history": [string]
-            }
+            }]
 
-        Example of Catalog Entry with an ID of 2. Some fields completed, others are null.  
-        {
+**Example Catalog Entry** 
+Some fields completed, others are null.  
+        [{
             "id": 2,
             "type": "Note Cards",
             "collection": "Poured Acrylic Prints",
@@ -46,15 +47,15 @@
             "sold_date": null,
             "sold_to": null,
             "history": null
-        },
+        }],
 
 ---
 
 ## Post a New Catalog Entry      
-    URL: /api/catalog
-    Method: POST
-    Authentication required: Yes
-    Content-Type: application/JSON 
+**URL:** /api/catalog
+**Method:** POST
+**Authentication required:** Yes
+**Content-Type:** application/JSON 
 
 ### Request Payload Example
         {"catalogItem":{
@@ -77,8 +78,8 @@
         }
 
 ### Success Response
-        Code: 200 OK
-        Response Content:  
+**Code:** 200 OK
+**Response Content:**  
             {
                 "id": 49,
                 "type": "painting",
@@ -100,20 +101,20 @@
 
 ---
 
-### View a Selected Catalog Entry
-      URL: /api/catalog/:id
-      URL Parameters: id=[integer] where id is the ID of the selected catalog item
-      Method: GET
-      Auth required: Yes
+## View a Selected Catalog Entry
+**URL:** /api/catalog/:id
+**URL Parameters:** id=[integer] where id is the ID of the selected catalog item
+**Method:** GET
+**Auth required:** Yes
 
-#### Error Response 
-    If selected catalog id is not in the database, an error will be returned.
-    Error: Catalog item does not exist      
+### Error Response 
+If selected catalog id is not in the database, an error will be returned.
+**Error:** Catalog item does not exist      
 
-#### Success Response
-        Code: 200 OK
-        Content:  If the selected catalog item exists, the user will see the content
-        Generic Content Example
+### Success Response
+**Code:** 200 OK
+**Content:**  If the selected catalog item exists, the user will see the content
+**Catalog Example**
             {
             "id": [integer]
             "type": [string],
@@ -133,7 +134,9 @@
             "history": [string]
             }
 
-        Content example of response object when the catalog ID parameter is 2. Some fields completed, others are null.  
+**Catalog Example** 
+Example response object when the catalog ID parameter is 2. Some fields completed, others are null.  
+
         {
             "id": 2,
             "type": "Note Cards",
@@ -154,40 +157,48 @@
         },
 
 ---
-### Patch a Selected Catalog Entry
-      URL: /api/catalog/:id
-      URL Parameters: id=[integer] where id is the ID of the selected catalog item
-      Method: PATCH
-      Auth required: Yes
+## Patch a Selected Catalog Entry
+**URL:** /api/catalog/:id
+**URL Parameters:** id=[integer] where id is the ID of the selected catalog item
+**Method:** PATCH
+**Auth required:** Yes
 
-#### Error Response 
-    If catalog id to delete is not in the database, an error will be returned.
-    Error: Catalog item does not exist  
+### Request Payload Example
+The payload needs to contain the keys and values to update.
+        {
+            "quantity": 20
+        }
 
-##### Success Response
-        Code: 204 NO CONTENT
-        Content:  If the selected catalog item was successfully deleted, no content will be displayed
+### Error Response 
+If catalog id to delete is not in the database, an error will be returned.
+**Error:** Catalog item does not exist  
+
+#### Success Response
+**Code:** 204 NO CONTENT
+**Content:**  If the selected catalog item was successfully updated, no content will be displayed
 
 ---
 
 ### Delete a Selected Catalog Entry
-      URL: /api/catalog/:id
-      URL Parameters: id=[integer] where id is the ID of the selected catalog item
-      Method: DELETE
-      Auth required: Yes
+**URL:** /api/catalog/:id
+**URL Parameters:** id=[integer] where id is the ID of the selected catalog item
+**Method:** DELETE
+**Authenticcation Required:** Yes
 
 #### Error Response 
-    If catalog id to delete is not in the database, an error will be returned.
-    Error: Catalog item does not exist  
+If catalog id to delete is not in the database, an error will be returned.
+**Error:** Catalog item does not exist  
 
 ##### Success Response
-        Code: 204 NO CONTENT
-        Content:  If the selected catalog item was successfully deleted, no content will be displayed
+**Code:** 204 NO CONTENT
+**Content:**  If the selected catalog item was successfully deleted, no content will be displayed
 
+
+---
 
 ### Notes:
+These endpoints are being built to access junction tables to retrieve the relationships.  
 
-    * /api/catalogcontacts
-    * /api/catalogevents
-    These endpoints are being built to access junction tables to retrieve the relationships.  
-
+* /api/catalogcontacts
+* /api/catalogevents
+    

@@ -6,7 +6,7 @@ Live Link: [Studio Keeper](https://studio-keeper-app.now.sh/)
 Client Repo: [Client Repo](https://github.com/sheilajmj/studio-keeper-app)
 Api Repo: [API Repo](https://github.com/sheilajmj/studio-keeper-server)
 
-
+---
 
 ## Getting Started
 
@@ -19,6 +19,8 @@ Complete the following steps to start a new project (NEW-PROJECT-NAME):
 3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
 4. Install the node dependencies `npm install`
 5.  Start the server by entering 'npm run' or 'npm run dev' for the development server (nodemon)
+
+---
 
 ## Dependencies
 
@@ -44,6 +46,7 @@ Step four, of 'Getting Started' (npm install) will install the following depende
     winston: ^3.2.1,
     xss: ^1.0.6
 
+---
 ## Scripts
 
 Start the application `npm start`
@@ -52,6 +55,7 @@ Start nodemon for the application `npm run dev`
 
 Run the tests `npm test`
 
+---
 ## Authentication Required Endpoints
 
 Note the authentication piece is not fully developed.  Any user/password once created will access all data.
@@ -71,11 +75,13 @@ Note the authentication piece is not fully developed.  Any user/password once cr
 [Catalog Images Related Endpoints](images.md)
 * /api/catalogimages  GET, POST
 
+---
 
 ## Running the tests
 
 To run the tests use the script "npm tests"
 
+---
 
 ## Built With
 
@@ -87,6 +93,7 @@ To run the tests use the script "npm tests"
 * [AWS S3](https://aws.amazon.com/s3/) - Storage Service
 * [Multer](https://www.npmjs.com/package/multer) - Middleware for Handling Multipart/Form-Data 
 
+---
 ### Notes:
 
     * Note the authentication piece is not fully developed.  Any user/password, once created will access all data.
