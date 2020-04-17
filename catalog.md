@@ -182,7 +182,7 @@ The payload needs to contain the keys and values to update.
 If catalog id to delete is not in the database, an error will be returned.  
 **Error:** Catalog item does not exist  
 
-#### Success Response  
+### Success Response  
 **Code:** 204 NO CONTENT  
 **Content:**  If the selected catalog item was successfully updated, no content will be displayed  
 
@@ -198,7 +198,7 @@ If catalog id to delete is not in the database, an error will be returned.
 If catalog id to delete is not in the database, an error will be returned.  
 **Error:** Catalog item does not exist  
 
-##### Success Response  
+#### Success Response  
 **Code:** 204 NO CONTENT  
 **Content:**  If the selected catalog item was successfully deleted, no content will be displayed  
 

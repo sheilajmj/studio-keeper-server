@@ -1,14 +1,15 @@
-# Contacts Related Endpoints
+# Contacts Related Endpoints 
 
-## View All Contact Entries
-**URL:** /api/contacts
-**Method:** GET
-**Authentication required:** Yes
+## View All Contact Entries  
+**URL:** /api/contacts  
+**Method:** GET  
+**Authentication required:** Yes  
  
-### Success Response
-**Code:** 200 OK
-**Content:**  If contact entries exist, the user will see all of the entries
-**Content Example**
+### Success Response  
+**Code:** 200 OK  
+**Content:**  If contact entries exist, the user will see all of the entries  
+**Content Example**  
+```
             [{      
                 id: [integer]
                 contact_type: [string]
@@ -26,9 +27,11 @@
                 website: [string]
                 notes: [string]
             }]
+```
 
-**Example Contacts:**
+**Example Contacts:**  
 Some fields completed, others are null.  
+```json
          [
             {
             "id": 1,
@@ -65,16 +68,18 @@ Some fields completed, others are null.
             "notes": "May have space in front dining room for three pieces"
         }
     ]
+```
 
 ---
 
-## Post a New Contact Entry      
-**URL:** /api/contacts
-**Method:** POST
-**Authentication required:** Yes
-**Content-Type:** application/JSON 
+## Post a New Contact Entry  
+**URL:** /api/contacts  
+**Method:** POST  
+**Authentication required:** Yes  
+**Content-Type:** application/JSON  
 
-### Request Payload Example
+### Request Payload Example  
+```json
         {
             "contact_type": "Business",
             "business_name": "Haug Gallery",
@@ -91,10 +96,12 @@ Some fields completed, others are null.
             "website": "HaugGallery.com",
             "notes": "Toured the gallery spring 2018"
         }
+```
 
-### Success Response
-**Code:** 200 OK
+### Success Response  
+**Code:** 200 OK  
 **Response Content:**  
+```json  
        {
             "id": 48,
             "contact_type": "Business",
@@ -112,23 +119,25 @@ Some fields completed, others are null.
             "website": "HaugGallery.com",
             "notes": "Toured the gallery spring 2018"
         }   
+```
 
 ---
 
-## View a Selected Contact
-**URL:** /api/contacts/:id
-**URL Parameters:** id=[integer] where id is the ID of the selected contact
-**Method:** GET
-**Auth required:** Yes
+## View a Selected Contact  
+**URL:** /api/contacts/:id  
+**URL Parameters:** id=[integer] where id is the ID of the selected contact  
+**Method:** GET  
+**Auth required:** Yes  
 
-### Error Response 
-If selected contact id is not in the database, an error will be returned.
-**Error:** Contact item does not exist      
+### Error Response  
+If selected contact id is not in the database, an error will be returned.  
+**Error:** Contact item does not exist  
 
-### Success Response
-**Code:** 200 OK
-**Content:**  If the selected contact item exists, the user will see the content
-**Contact Example**
+### Success Response  
+**Code:** 200 OK  
+**Content:**  If the selected contact item exists, the user will see the content  
+**Contact Example**  
+```
             {      
                 id: [integer]
                 contact_type: [string]
@@ -146,10 +155,11 @@ If selected contact id is not in the database, an error will be returned.
                 website: [string]
                 notes: [string]
             }
+```
 
-**Contact Example** 
+**Contact Example**  
 Example response object when the contact ID parameter is 2. Some fields completed, others are null.  
-
+```json  
         {
             "id": 2,
             "contact_type": "Individual",
@@ -166,51 +176,54 @@ Example response object when the contact ID parameter is 2. Some fields complete
             "address_country": "USA",
             "website": null,
             "notes": "May have space in front dining room for three pieces"
-        }
+        }  
+```
 
 ---
-## Patch a Selected Contact Entry
-**URL:** /api/contacts/:id
-**URL Parameters:** id=[integer] where id is the ID of the selected contact item
-**Method:** PATCH
-**Auth required:** Yes
+## Patch a Selected Contact Entry  
+**URL:** /api/contacts/:id  
+**URL Parameters:** id=[integer] where id is the ID of the selected contact item  
+**Method:** PATCH  
+**Auth required:** Yes  
 
-### Request Payload Example
-The payload needs to contain the keys and values to update.
+### Request Payload Example  
+The payload needs to contain the keys and values to update.  
+```json  
         {
             "email": "anotheremail@email.com"
-        }
+        }  
+```
 
-### Error Response 
-If contact id to delete is not in the database, an error will be returned.
+### Error Response  
+If contact id to delete is not in the database, an error will be returned.  
 **Error:** Contact does not exist  
 
-#### Success Response
-**Code:** 204 NO CONTENT
-**Content:**  If the selected contact was successfully updated, no content will be displayed
+### Success Response  
+**Code:** 204 NO CONTENT  
+**Content:**  If the selected contact was successfully updated, no content will be displayed  
 
 ---
 
-### Delete a Selected Contact 
-**URL:** /api/contacts/:id
-**URL Parameters:** id=[integer] where id is the ID of the selected contact
-**Method:** DELETE
-**Authenticcation Required:** Yes
+### Delete a Selected Contact  
+**URL:** /api/contacts/:id  
+**URL Parameters:** id=[integer] where id is the ID of the selected contact  
+**Method:** DELETE  
+**Authenticcation Required:** Yes  
 
-#### Error Response 
-If the contact id to delete is not in the database, an error will be returned.
+#### Error Response  
+If the contact id to delete is not in the database, an error will be returned.  
 **Error:** Contact does not exist  
 
-##### Success Response
-**Code:** 204 NO CONTENT
-**Content:**  If the selected contact was successfully deleted, no content will be displayed
+#### Success Response  
+**Code:** 204 NO CONTENT  
+**Content:**  If the selected contact was successfully deleted, no content will be displayed  
 
 
 ---
 
-### Notes:
+### Notes:  
 These endpoints are being built to access junction tables to retrieve the relationships.  
 
-* /api/catalogcontacts
-* /api/contactsevents
+* /api/catalogcontacts  
+* /api/contactsevents  
     
