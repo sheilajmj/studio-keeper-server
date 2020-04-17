@@ -1,10 +1,11 @@
 # Catalog Related Endpoints
-    ## View All Catalog Entries
+
+## View All Catalog Entries
       URL: /api/catalog
       Method: GET
-      Auth required: Yes
+      Authentication required: Yes
  
-    ##### Success Response
+### Success Response
         Code: 200 OK
         Content:  If catalog entries exist, the user will see all of the entries
         Generic Content Example
@@ -47,11 +48,64 @@
             "history": null
         },
 
-    #### View a Selected Catalog Entry
+## Post a New Catalog Entry      
+    URL: /api/catalog
+    Method: POST
+    Authentication required: Yes
+    Content-Type: application/JSON 
+
+### Request Payload Example
+  {"catalogItem":{
+      "type":"painting",
+      "collection": "Poured Acrylic", 
+      "name": "Cinnamon",
+      "size": "60in x 60in",
+      "medium": "Acrylic on Canvas",
+      "price": "355.00",
+      "date_created": "2019-03-12",
+      "concept_statement": "This is a concept statement for this work",
+      "notes": null,
+       "subject": "abstract",
+       "quantity": 5,
+       "location": "studio cabinet B",
+       "sold_date": null,
+       "sold_to": null,
+       "history": null
+    }
+  }
+
+### Success Response
+        Code: 200 OK
+        Response Content:  
+            {
+                "id": 49,
+                "type": "painting",
+                "collection": "Poured Acrylic",
+                "name": "Cinnamon",
+                "size": "60in x 60in",
+                "medium": "Acrylic on Canvas",
+                "price": "355.00",
+                "date_created": "2019-03-12T00:00:00.000Z",
+                "concept_statement": "This is a concept statement for this work",
+                "notes": null,
+                "subject": "abstract",
+                "quantity": 5,
+                "location": "studio cabinet B",
+                "sold_date": null,
+                "sold_to": null,
+                "history": null
+            }
+
+
+### View a Selected Catalog Entry
       URL: /api/catalog/:id
       URL Parameters: id=[integer] where id is the ID of the selected catalog item
       Method: GET
       Auth required: Yes
+
+#### Error Response 
+    If selected catalog id is not in the database, an error will be returned.
+    Error: Catalog item does not exist      
 
 ##### Success Response
         Code: 200 OK
@@ -97,41 +151,24 @@
         },
 
 
+### Delete a Selected Catalog Entry
+      URL: /api/catalog/:id
+      URL Parameters: id=[integer] where id is the ID of the selected catalog item
+      Method: DELETE
+      Auth required: Yes
 
+#### Error Response 
+    If catalog id to delete is not in the database, an error will be returned.
+    Error: Catalog item does not exist  
 
+##### Success Response
+        Code: 204 NO CONTENT
+        Content:  If the selected catalog item was successfully deleted, no content will be displayed
 
-
-
-
-
-
-
-
-
-
-
-## Running the tests
-
-To run the tests use the script "npm tests"
-
-
-## Built With
-
-* [Node](https://nodejs.org/en/)
-* [Express](http://expressjs.com/) - Framework
-* [Knex](http://knexjs.org/) - SQL Query Builder 
-* [Postgres](https://www.postgresql.org/) - Relational Database 
-* [Mocha](https://mochajs.org/) - Test Framework
-* [AWS S3](https://aws.amazon.com/s3/) - Storage Service
-* [Multer](https://www.npmjs.com/package/multer) - Middleware for Handling Multipart/Form-Data 
 
 ### Notes:
 
-    * Note the authentication piece is not fully developed.  Any user/password, once created will access all data.
-
-    * Endpoints currently in development include: 
-        ** /api/catalogcontacts
-        ** /api/catalogevents
-        ** /api/contactsevents
-        These endpoints are being built to access junction tables to retrieve the relationships.  
+    * /api/catalogcontacts
+    * /api/catalogevents
+    These endpoints are being built to access junction tables to retrieve the relationships.  
 

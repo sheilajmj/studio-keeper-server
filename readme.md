@@ -54,7 +54,7 @@ Run the tests `npm test`
 
 ## Authentication Required Endpoints
 
-    ** Note the authentication piece is not fully developed.  Any user/password once created will access all data.
+Note the authentication piece is not fully developed.  Any user/password once created will access all data.
 
 
         [Catalog Related Endpoints](./catalog.md): 
