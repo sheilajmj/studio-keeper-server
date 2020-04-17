@@ -55,24 +55,24 @@
     Content-Type: application/JSON 
 
 ### Request Payload Example
-  {"catalogItem":{
-      "type":"painting",
-      "collection": "Poured Acrylic", 
-      "name": "Cinnamon",
-      "size": "60in x 60in",
-      "medium": "Acrylic on Canvas",
-      "price": "355.00",
-      "date_created": "2019-03-12",
-      "concept_statement": "This is a concept statement for this work",
-      "notes": null,
-       "subject": "abstract",
-       "quantity": 5,
-       "location": "studio cabinet B",
-       "sold_date": null,
-       "sold_to": null,
-       "history": null
-    }
-  }
+        {"catalogItem":{
+            "type":"painting",
+            "collection": "Poured Acrylic", 
+            "name": "Cinnamon",
+            "size": "60in x 60in",
+            "medium": "Acrylic on Canvas",
+            "price": "355.00",
+            "date_created": "2019-03-12",
+            "concept_statement": "This is a concept statement for this work",
+            "notes": null,
+            "subject": "abstract",
+            "quantity": 5,
+            "location": "studio cabinet B",
+            "sold_date": null,
+            "sold_to": null,
+            "history": null
+            }
+        }
 
 ### Success Response
         Code: 200 OK
@@ -107,7 +107,7 @@
     If selected catalog id is not in the database, an error will be returned.
     Error: Catalog item does not exist      
 
-##### Success Response
+#### Success Response
         Code: 200 OK
         Content:  If the selected catalog item exists, the user will see the content
         Generic Content Example
