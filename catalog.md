@@ -48,6 +48,8 @@
             "history": null
         },
 
+---
+
 ## Post a New Catalog Entry      
     URL: /api/catalog
     Method: POST
@@ -55,7 +57,6 @@
     Content-Type: application/JSON 
 
 ### Request Payload Example
-```
         {"catalogItem":{
             "type":"painting",
             "collection": "Poured Acrylic", 
@@ -74,7 +75,6 @@
             "history": null
             }
         }
-```
 
 ### Success Response
         Code: 200 OK
@@ -98,6 +98,7 @@
                 "history": null
             }
 
+---
 
 ### View a Selected Catalog Entry
       URL: /api/catalog/:id
@@ -152,6 +153,22 @@
             "history": null
         },
 
+---
+### Patch a Selected Catalog Entry
+      URL: /api/catalog/:id
+      URL Parameters: id=[integer] where id is the ID of the selected catalog item
+      Method: PATCH
+      Auth required: Yes
+
+#### Error Response 
+    If catalog id to delete is not in the database, an error will be returned.
+    Error: Catalog item does not exist  
+
+##### Success Response
+        Code: 204 NO CONTENT
+        Content:  If the selected catalog item was successfully deleted, no content will be displayed
+
+---
 
 ### Delete a Selected Catalog Entry
       URL: /api/catalog/:id
