@@ -55,6 +55,7 @@
     Content-Type: application/JSON 
 
 ### Request Payload Example
+```
         {"catalogItem":{
             "type":"painting",
             "collection": "Poured Acrylic", 
@@ -73,6 +74,7 @@
             "history": null
             }
         }
+```
 
 ### Success Response
         Code: 200 OK
