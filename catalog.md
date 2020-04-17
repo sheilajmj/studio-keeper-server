@@ -78,8 +78,11 @@ Some fields completed, others are null.
         }
 
 ### Success Response
+
 **Code:** 200 OK
+
 **Response Content:**  
+
             {
                 "id": 49,
                 "type": "painting",
@@ -102,19 +105,28 @@ Some fields completed, others are null.
 ---
 
 ## View a Selected Catalog Entry
+
 **URL:** /api/catalog/:id
+
 **URL Parameters:** id=[integer] where id is the ID of the selected catalog item
+
 **Method:** GET
+
 **Auth required:** Yes
 
 ### Error Response 
 If selected catalog id is not in the database, an error will be returned.
+
 **Error:** Catalog item does not exist      
 
 ### Success Response
+
 **Code:** 200 OK
+
 **Content:**  If the selected catalog item exists, the user will see the content
+
 **Catalog Example**
+
             {
             "id": [integer]
             "type": [string],
@@ -158,39 +170,57 @@ Example response object when the catalog ID parameter is 2. Some fields complete
 
 ---
 ## Patch a Selected Catalog Entry
+
 **URL:** /api/catalog/:id
+
 **URL Parameters:** id=[integer] where id is the ID of the selected catalog item
+
 **Method:** PATCH
+
 **Auth required:** Yes
 
 ### Request Payload Example
+
 The payload needs to contain the keys and values to update.
+
         {
             "quantity": 20
         }
 
 ### Error Response 
+
 If catalog id to delete is not in the database, an error will be returned.
+
 **Error:** Catalog item does not exist  
 
 #### Success Response
+
 **Code:** 204 NO CONTENT
+
 **Content:**  If the selected catalog item was successfully updated, no content will be displayed
 
 ---
 
 ### Delete a Selected Catalog Entry
+
 **URL:** /api/catalog/:id
+
 **URL Parameters:** id=[integer] where id is the ID of the selected catalog item
+
 **Method:** DELETE
+
 **Authenticcation Required:** Yes
 
 #### Error Response 
+
 If catalog id to delete is not in the database, an error will be returned.
+
 **Error:** Catalog item does not exist  
 
 ##### Success Response
+
 **Code:** 204 NO CONTENT
+
 **Content:**  If the selected catalog item was successfully deleted, no content will be displayed
 
 
