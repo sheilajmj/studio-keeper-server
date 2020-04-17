@@ -1,12 +1,12 @@
 # Catalog Related Endpoints
 
 ## View All Catalog Entries
-**URL:** /api/catalog
-**Method:** GET
-**Authentication required:** Yes
+**URL:** /api/catalog  
+**Method:** GET  
+**Authentication required:** Yes  
  
-### Success Response
-**Code:** 200 OK
+### Success Response  
+**Code:** 200 OK  
 **Content:**  If catalog entries exist, the user will see all of the entries  
 **Content Example**  
 ```
