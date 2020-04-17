@@ -7,10 +7,11 @@
  
 ### Success Response
 **Code:** 200 OK
-**Content:**  If catalog entries exist, the user will see all of the entries
-**Content Example**
+**Content:**  If catalog entries exist, the user will see all of the entries  
+**Content Example**  
+```
             [{
-            "id": [integer]
+            "id": [integer],
             "type": [string],
             "collection": [string],
             "name": [string],
@@ -27,9 +28,11 @@
             "sold_to": [string],
             "history": [string]
             }]
+```
 
 **Example Catalog Entry** 
 Some fields completed, others are null.  
+```json
         [{
             "id": 2,
             "type": "Note Cards",
@@ -48,16 +51,17 @@ Some fields completed, others are null.
             "sold_to": null,
             "history": null
         }],
-
+```
 ---
 
-## Post a New Catalog Entry      
-**URL:** /api/catalog
-**Method:** POST
-**Authentication required:** Yes
-**Content-Type:** application/JSON 
+## Post a New Catalog Entry  
+**URL:** /api/catalog  
+**Method:** POST  
+**Authentication required:** Yes  
+**Content-Type:** application/JSON   
 
-### Request Payload Example
+### Request Payload Example    
+```json
         {"catalogItem":{
             "type":"painting",
             "collection": "Poured Acrylic", 
@@ -76,13 +80,14 @@ Some fields completed, others are null.
             "history": null
             }
         }
+```
 
-### Success Response
+### Success Response  
 
-**Code:** 200 OK
+**Code:** 200 OK  
 
-**Response Content:**  
-
+**Response Content:**    
+```json
             {
                 "id": 49,
                 "type": "painting",
@@ -101,32 +106,31 @@ Some fields completed, others are null.
                 "sold_to": null,
                 "history": null
             }
-
+```
 ---
 
-## View a Selected Catalog Entry
+## View a Selected Catalog Entry  
 
-**URL:** /api/catalog/:id
+**URL:** /api/catalog/:id  
 
-**URL Parameters:** id=[integer] where id is the ID of the selected catalog item
+**URL Parameters:** id=[integer] where id is the ID of the selected catalog item  
 
-**Method:** GET
+**Method:** GET  
 
-**Auth required:** Yes
+**Auth required:** Yes  
 
-### Error Response 
-If selected catalog id is not in the database, an error will be returned.
+### Error Response  
+If selected catalog id is not in the database, an error will be returned.  
 
-**Error:** Catalog item does not exist      
+**Error:** Catalog item does not exist  
 
-### Success Response
+### Success Response  
+**Code:** 200 OK  
 
-**Code:** 200 OK
+**Content:**  If the selected catalog item exists, the user will see the content  
 
-**Content:**  If the selected catalog item exists, the user will see the content
-
-**Catalog Example**
-
+**Catalog Example**  
+```
             {
             "id": [integer]
             "type": [string],
@@ -145,10 +149,11 @@ If selected catalog id is not in the database, an error will be returned.
             "sold_to": [string],
             "history": [string]
             }
+```
 
-**Catalog Example** 
+**Catalog Example**  
 Example response object when the catalog ID parameter is 2. Some fields completed, others are null.  
-
+```json
         {
             "id": 2,
             "type": "Note Cards",
@@ -167,66 +172,66 @@ Example response object when the catalog ID parameter is 2. Some fields complete
             "sold_to": null,
             "history": null
         },
-
+```
 ---
-## Patch a Selected Catalog Entry
+## Patch a Selected Catalog Entry  
 
-**URL:** /api/catalog/:id
+**URL:** /api/catalog/:id  
 
-**URL Parameters:** id=[integer] where id is the ID of the selected catalog item
+**URL Parameters:** id=[integer] where id is the ID of the selected catalog item  
 
-**Method:** PATCH
+**Method:** PATCH  
 
-**Auth required:** Yes
+**Auth required:** Yes  
 
-### Request Payload Example
+### Request Payload Example  
 
-The payload needs to contain the keys and values to update.
-
+The payload needs to contain the keys and values to update.  
+```json
         {
             "quantity": 20
         }
+```
 
-### Error Response 
-
-If catalog id to delete is not in the database, an error will be returned.
-
-**Error:** Catalog item does not exist  
-
-#### Success Response
-
-**Code:** 204 NO CONTENT
-
-**Content:**  If the selected catalog item was successfully updated, no content will be displayed
-
----
-
-### Delete a Selected Catalog Entry
-
-**URL:** /api/catalog/:id
-
-**URL Parameters:** id=[integer] where id is the ID of the selected catalog item
-
-**Method:** DELETE
-
-**Authenticcation Required:** Yes
-
-#### Error Response 
-
-If catalog id to delete is not in the database, an error will be returned.
+### Error Response  
+If catalog id to delete is not in the database, an error will be returned.  
 
 **Error:** Catalog item does not exist  
 
-##### Success Response
+#### Success Response  
 
-**Code:** 204 NO CONTENT
+**Code:** 204 NO CONTENT  
 
-**Content:**  If the selected catalog item was successfully deleted, no content will be displayed
+**Content:**  If the selected catalog item was successfully updated, no content will be displayed  
+
+---
+
+### Delete a Selected Catalog Entry  
+
+**URL:** /api/catalog/:id  
+
+**URL Parameters:** id=[integer] where id is the ID of the selected catalog item  
+
+**Method:** DELETE  
+
+**Authenticcation Required:** Yes  
+
+#### Error Response  
+
+If catalog id to delete is not in the database, an error will be returned.  
+
+**Error:** Catalog item does not exist  
+
+##### Success Response  
+
+**Code:** 204 NO CONTENT  
+
+**Content:**  If the selected catalog item was successfully deleted, no content will be displayed  
 
 
 ---
 
-### Notes:
+### Notes:  
 These endpoints are being built to access junction tables to retrieve the relationships.  
 
 * /api/catalogcontacts
