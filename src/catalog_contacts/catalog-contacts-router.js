@@ -1,15 +1,14 @@
-const express = require('express')
-const CatalogContactsService = require('./catalog-contacts-service')
-const catalogContactsRouter = express.Router()
-const bodyParser = express.json()
-const { requireAuth } = require('../middleware/jwt-auth')
-jsonParser = express.json()
+const express = require('express');
+const CatalogContactsService = require('./catalog-contacts-service');
+const catalogContactsRouter = express.Router();
+const bodyParser = express.json();
+const { requireAuth } = require('../middleware/jwt-auth');
+jsonParser = express.json();
 
 const serializeCatalogContactsItem = item => ({
   "catalog_id": item.catalog_id,
   "contact_id": item.contact_id,
 })
-
 
 
 catalogContactsRouter
@@ -35,5 +34,6 @@ catalogContactsRouter
         })
     }
   })
+
 
 module.exports = catalogContactsRouter

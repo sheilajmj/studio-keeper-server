@@ -1,14 +1,14 @@
-const express = require('express')
-const CatalogEventsService = require('./catalog-events-service')
-const catalogEventsRouter = express.Router()
-const bodyParser = express.json()
-const { requireAuth } = require('../middleware/jwt-auth')
-jsonParser = express.json()
+const express = require('express');
+const CatalogEventsService = require('./catalog-events-service');
+const catalogEventsRouter = express.Router();
+const bodyParser = express.json();
+const { requireAuth } = require('../middleware/jwt-auth');
+jsonParser = express.json();
 
 const serializeCatalogEventsItem = item => ({
     "catalog_id": item.catalog_id,
     "event_id": item.event_id, 
-})
+});
 
 
 catalogEventsRouter
@@ -21,7 +21,6 @@ catalogEventsRouter
       res.json(response.map(serializeCatalogEventsItem))
     })
    })
-
 
   .post(bodyParser, (req, res, next) => {
 

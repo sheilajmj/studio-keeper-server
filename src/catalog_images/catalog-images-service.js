@@ -14,7 +14,7 @@ const CatalogImagesService = {
             return rows[0]
         })
 },
+};
 
-}
 
 module.exports = CatalogImagesService

@@ -31,6 +31,6 @@ const ContactsService = {
         .update(newContactFields)
     },
 
-}
+};
 
 module.exports = ContactsService

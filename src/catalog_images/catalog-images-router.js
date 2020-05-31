@@ -1,13 +1,13 @@
-const express = require('express')
-const CatalogImagesService = require('./catalog-images-service')
-const router = express.Router()
-jsonParser = express.json()
-const multer = require('multer')
+const express = require('express');
+const CatalogImagesService = require('./catalog-images-service');
+const router = express.Router();
+jsonParser = express.json();
+const multer = require('multer');
 const serializeCatalogImage = catalog => ({
   "image_name": catalog.image_name,
   "catalog_id": catalog.catalog_id,
   "image_url": catalog.image_url
-})
+});
 const path = require('path');
 
 const storage = multer.diskStorage({
@@ -29,7 +29,7 @@ const fileFilter = (req, file, cb) => {
     return cb(null, false, new Error("Only images are allowed"));
   }
   cb(null, true);
-}
+};
 
 
 const upload = multer({ 

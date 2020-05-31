@@ -1,16 +1,16 @@
 const express = require('express');
 const aws = require('aws-sdk');
 const bodyParser = require('body-parser');
-const CatalogImagesService = require('../catalog-images-service')
+const CatalogImagesService = require('../catalog-images-service');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 const config = require('../../config')
-const router = express.Router()
+const router = express.Router();
 const serializeCatalogImage = catalog => ({
     "image_name": catalog.image_name,
     "catalog_id": catalog.catalog_id,
     "image_url": catalog.image_url
-  })
+  });
 
 
 aws.config.update({
@@ -48,7 +48,6 @@ const upload = multer({
       }
 })
 
-
 router
 .route('/image-upload')
 .post(upload.single('image'), (req, res, next) => {
@@ -70,9 +69,5 @@ router
           .catch(next)
 })        
    
-
-
-
-
 
 module.exports = router;

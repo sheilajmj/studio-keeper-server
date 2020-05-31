@@ -1,7 +1,7 @@
-const express = require('express')
-const eventsRouter = express.Router()
-const bodyParser = express.json()
-const EventsService = require('./events-service')
+const express = require('express');
+const eventsRouter = express.Router();
+const bodyParser = express.json();
+const EventsService = require('./events-service');
 const serializeEventItem = event => ({
       "id": event.id,
       "event_type": event.type,
@@ -12,7 +12,7 @@ const serializeEventItem = event => ({
       "application_due_date": event.application_due_date,
       "notes": event.notes,
       "submission_requirements": event.submission_requirements,
-    })
+    });
     
 
 eventsRouter
@@ -110,4 +110,5 @@ eventsRouter
     .catch(next)
   })
 
+  
 module.exports = eventsRouter

@@ -1,9 +1,9 @@
-const express = require('express')
-const ContactsEventsService = require('./contacts-events-service')
-const contactsEventsRouter = express.Router()
-const bodyParser = express.json()
-const { requireAuth } = require('../middleware/jwt-auth')
-jsonParser = express.json()
+const express = require('express');
+const ContactsEventsService = require('./contacts-events-service');
+const contactsEventsRouter = express.Router();
+const bodyParser = express.json();
+const { requireAuth } = require('../middleware/jwt-auth');
+jsonParser = express.json();
 
 const serializeContactsEventsItem = item => ({
     "contact_id": item.contact_id,

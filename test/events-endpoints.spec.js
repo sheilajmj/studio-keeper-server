@@ -1,6 +1,6 @@
-const { expect } = require('chai')
-const knex = require('knex')
-const app = require('../src/app')
+const { expect } = require('chai');
+const knex = require('knex');
+const app = require('../src/app');
 
 describe.only('Events Endpoints', function () {
     let db
@@ -28,8 +28,6 @@ describe.only('Events Endpoints', function () {
                         notes: 'Attended last year and it was a success! Amy said she could share a booth',
                         submission_requirements: 'letter of intent, portfolio link, deposit'
                     }
-
-
                     )
             })
         })

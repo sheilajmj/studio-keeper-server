@@ -30,6 +30,7 @@ const EventsService = {
         .update(newEventFields)
     },
 
-}
+};
+
 
 module.exports = EventsService

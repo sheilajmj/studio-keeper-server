@@ -1,9 +1,9 @@
-const express = require('express')
-const CatalogService = require('./catalog-service')
-const catalogRouter = express.Router()
-const bodyParser = express.json()
-const { requireAuth } = require('../middleware/jwt-auth')
-const path = require('path')
+const express = require('express');
+const CatalogService = require('./catalog-service');
+const catalogRouter = express.Router();
+const bodyParser = express.json();
+const { requireAuth } = require('../middleware/jwt-auth');
+const path = require('path');
 
 
 
@@ -124,7 +124,6 @@ catalogRouter
       })
       .catch(next)
   })
-
 
 
 module.exports = catalogRouter

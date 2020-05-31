@@ -30,6 +30,7 @@ const CatalogService = {
         .update(newCatalogItemFields)
     },
 
-}
+};
+
 
 module.exports = CatalogService

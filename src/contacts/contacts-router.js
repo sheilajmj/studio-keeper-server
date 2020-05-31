@@ -1,8 +1,8 @@
-const express = require('express')
-const contactsRouter = express.Router()
-const ContactsService = require('../contacts/contacts-service')
-const { requireAuth } = require('../middleware/jwt-auth')
-const bodyParser = express.json()
+const express = require('express');
+const contactsRouter = express.Router();
+const ContactsService = require('../contacts/contacts-service');
+const { requireAuth } = require('../middleware/jwt-auth');
+const bodyParser = express.json();
 
 
 jsonParser = express.json()

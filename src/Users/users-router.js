@@ -1,8 +1,8 @@
-const express = require('express')
-const path = require('path')
-const UserService = require('./users-service')
-const usersRouter = express.Router()
-const jsonBodyParser = express.json()
+const express = require('express');
+const path = require('path');
+const UserService = require('./users-service');
+const usersRouter = express.Router();
+const jsonBodyParser = express.json();
 
 usersRouter
   .post('/users', jsonBodyParser, (req, res, next) => {
@@ -25,7 +25,6 @@ usersRouter
       .then(hasUserWithUserName => {
         if (hasUserWithUserName)
           return res.status(400).json({ error: `Username already taken` })
-
 
         return UserService.hashPassword(password)
           .then(hashedPassword => {
@@ -51,4 +50,5 @@ usersRouter
       .catch(next)
     })
 
+    
 module.exports = usersRouter
